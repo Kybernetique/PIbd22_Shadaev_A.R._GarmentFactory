@@ -23,11 +23,6 @@ namespace GarmentFactoryView
             _logic = logic;
         }
 
-        private void FormTextiles_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
         private void LoadData()
         {
             try
@@ -70,7 +65,7 @@ namespace GarmentFactoryView
             }
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void buttonDel_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
@@ -94,6 +89,11 @@ namespace GarmentFactoryView
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void FormTextiles_Load(object sender, EventArgs e)
         {
             LoadData();
         }

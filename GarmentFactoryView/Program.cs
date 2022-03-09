@@ -8,7 +8,8 @@ using Unity.Lifetime;
 using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryListImplement.Implements;
+using GarmentFactoryFileImplement.Implements;
+using GarmentFactoryFileImplement;
 
 namespace GarmentFactoryView
 {
@@ -56,10 +57,7 @@ namespace GarmentFactoryView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
+            FileDataListSingleton.GetInstance().SaveData();
         }
-
-
-
-
     }
 }

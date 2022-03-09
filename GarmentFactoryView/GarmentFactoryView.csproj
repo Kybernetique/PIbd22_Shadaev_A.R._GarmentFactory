@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GarmentFactoryBusinessLogic\GarmentFactoryBusinessLogic.csproj" />
     <ProjectReference Include="..\GarmentFactoryContracts\GarmentFactoryContracts.csproj" />
+    <ProjectReference Include="..\GarmentFactoryFileImplement\GarmentFactoryFileImplement.csproj" />
     <ProjectReference Include="..\GarmentFactoryListImplement\GarmentFactoryListImplement.csproj" />
   </ItemGroup>
 
