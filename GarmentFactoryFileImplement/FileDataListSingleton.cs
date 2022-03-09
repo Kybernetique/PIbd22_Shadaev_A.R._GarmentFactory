@@ -161,7 +161,7 @@ namespace GarmentFactoryFileImplement
         {
             if (Garments != null)
             {
-                var xElement = new XElement("Products");
+                var xElement = new XElement("Garments");
                 foreach (var garment in Garments)
                 {
                     var texElement = new XElement("GarmentTextiles");
