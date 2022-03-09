@@ -57,9 +57,9 @@ namespace GarmentFactoryView
 
         }
 
-        private void одеждаToolStripMenuItem_Click(object sender, EventArgs e)
+        private void швейныеИзделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormGarment>();
+            var form = Program.Container.Resolve<FormGarments>();
             form.ShowDialog();
         }
 

@@ -190,5 +190,6 @@ namespace GarmentFactoryView
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
     }
 }
