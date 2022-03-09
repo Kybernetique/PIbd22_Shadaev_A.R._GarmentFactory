@@ -80,10 +80,10 @@ namespace GarmentFactoryFileImplement.Implements
         }
 
         private static Textile CreateModel(TextileBindingModel model, Textile
-component)
+textile)
         {
-            component.TextileName = model.TextileName;
-            return component;
+            textile.TextileName = model.TextileName;
+            return textile;
         }
 
         private TextileViewModel CreateModel(Textile textile)

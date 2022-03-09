@@ -125,11 +125,11 @@ namespace GarmentFactoryFileImplement
             if (Textiles != null)
             {
                 var xElement = new XElement("Textiles");
-                foreach (var component in Textiles)
+                foreach (var textile in Textiles)
                 {
                     xElement.Add(new XElement("Textile",
-                    new XAttribute("Id", component.Id),
-                    new XElement("TextileName", component.TextileName)));
+                    new XAttribute("Id", textile.Id),
+                    new XElement("TextileName", textile.TextileName)));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(TextileFileName);
