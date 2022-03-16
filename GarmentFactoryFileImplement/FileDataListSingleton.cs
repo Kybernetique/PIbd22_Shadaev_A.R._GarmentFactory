@@ -41,13 +41,6 @@ namespace GarmentFactoryFileImplement
             SaveGarments();
         }
 
-        ~FileDataListSingleton()
-        {
-            SaveTextiles();
-            SaveOrders();
-            SaveGarments();
-        }
-
         private List<Textile> LoadTextiles()
         {
             var list = new List<Textile>();
