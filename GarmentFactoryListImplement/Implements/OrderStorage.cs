@@ -124,6 +124,7 @@ namespace GarmentFactoryListImplement.Implements
                 if (garment.Id == order.GarmentId)
                 {
                     garmentName = garment.GarmentName;
+                    break;
                 }
             }
             return new OrderViewModel
