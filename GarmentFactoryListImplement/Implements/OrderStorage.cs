@@ -119,7 +119,6 @@ namespace GarmentFactoryListImplement.Implements
         private OrderViewModel CreateModel(Order order)
         {
             Garment garment = source.Garments.FirstOrDefault(x => x.Id == order.GarmentId);
-
             return new OrderViewModel
             {
                 Id = order.Id,
