@@ -8,7 +8,7 @@ using Unity.Lifetime;
 using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryFileImplement.Implements;
+using GarmentFactoryDatabaseImplement.Implements;
 using GarmentFactoryFileImplement;
 
 namespace GarmentFactoryView
