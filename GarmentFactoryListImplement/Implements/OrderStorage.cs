@@ -118,12 +118,20 @@ namespace GarmentFactoryListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            Garment garment = source.Garments.FirstOrDefault(x => x.Id == order.GarmentId);
+            string garmentName = null;
+            foreach (var garment in source.Garments)
+            {
+                if (garment.Id == order.GarmentId)
+                {
+                    garmentName = garment.GarmentName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
-                GarmentName = garment.GarmentName,
+                GarmentName = garmentName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
