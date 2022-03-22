@@ -14,8 +14,13 @@ namespace GarmentFactoryDatabaseImplement.Implements
         {
             using var context = new GarmentFactoryDatabase();
             return context.Textiles
-            .Select(CreateModel)
+            .Select(rec => new TextileViewModel
+            {
+                Id = rec.Id,
+                TextileName = rec.TextileName
+            })
             .ToList();
+
         }
 
         public void Delete(TextileBindingModel model)
@@ -56,8 +61,13 @@ namespace GarmentFactoryDatabaseImplement.Implements
             using var context = new GarmentFactoryDatabase();
             return context.Textiles
             .Where(rec => rec.TextileName.Contains(model.TextileName))
-            .Select(CreateModel)
+           .Select(rec => new TextileViewModel
+           {
+               Id = rec.Id,
+               TextileName = rec.TextileName
+           })
             .ToList();
+
         }
 
         public void Insert(TextileBindingModel model)

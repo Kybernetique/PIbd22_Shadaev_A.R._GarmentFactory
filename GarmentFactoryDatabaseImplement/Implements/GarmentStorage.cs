@@ -18,7 +18,15 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .Include(rec => rec.GarmentTextiles)
             .ThenInclude(rec => rec.Textile)
             .ToList()
-            .Select(CreateModel)
+            .Select(rec => new GarmentViewModel
+            {
+                Id = rec.Id,
+                GarmentName = rec.GarmentName,
+                Price = rec.Price,
+                GarmentTextiles = rec.GarmentTextiles
+                .ToDictionary(recGT => recGT.TextileId, recPT => // ?
+               (recPT.Textile?.TextileName, recPT.Count))
+            })
             .ToList();
         }
 
@@ -34,7 +42,15 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .ThenInclude(rec => rec.Textile)
             .Where(rec => rec.GarmentName.Contains(model.GarmentName))
             .ToList()
-            .Select(CreateModel)
+            .Select(rec => new GarmentViewModel
+            {
+                Id = rec.Id,
+                GarmentName = rec.GarmentName,
+                Price = rec.Price,
+                GarmentTextiles = rec.GarmentTextiles
+                .ToDictionary(GT => GT.TextileId, recPT =>
+               (recPT.Textile?.TextileName, recPT.Count))
+})
             .ToList();
         }
 
@@ -50,17 +66,32 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .ThenInclude(rec => rec.Textile)
             .FirstOrDefault(rec => rec.GarmentName == model.GarmentName ||
             rec.Id == model.Id);
-            return garment != null ? CreateModel(garment) : null;
+            return garment != null ? new GarmentViewModel
+            {
+                Id = garment.Id,
+                GarmentName = garment.GarmentName,
+                Price = garment.Price,
+                GarmentTextiles = garment.GarmentTextiles
+            .ToDictionary(recPC => recPC.TextileId, recTC =>
+           (recTC.Textile?.TextileName, recTC.Count))
+            } :
+           null;
         }
 
         public void Insert(GarmentBindingModel model)
         {
-            using var context = new GarmentFactoryDatabase();
-            using var transaction = context.Database.BeginTransaction();
+            var context = new GarmentFactoryDatabase();
+            var transaction = context.Database.BeginTransaction();
             try
             {
-                context.Garments.Add(CreateModel(model, new Garment(),
-                context));
+                Garment g = new Garment
+                {
+                    GarmentName = model.GarmentName,
+                    Price = model.Price
+                };
+                context.Garments.Add(g);
+                context.SaveChanges();
+                CreateModel(model, g, context);
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -145,7 +176,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             }
             return garment;
         }
-
+/*
         private static GarmentViewModel CreateModel(Garment garment)
         {
             return new GarmentViewModel
@@ -157,6 +188,6 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .ToDictionary(recPC => recPC.TextileId,
             recPC => (recPC.Textile?.TextileName, recPC.Count))
             };
-        }
+        }*/
     }
 }
