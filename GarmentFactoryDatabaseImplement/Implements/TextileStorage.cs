@@ -14,11 +14,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
         {
             using var context = new GarmentFactoryDatabase();
             return context.Textiles
-            .Select(rec => new TextileViewModel
-            {
-                Id = rec.Id,
-                TextileName = rec.TextileName
-            })
+            .Select(CreateModel)
             .ToList();
 
         }
@@ -61,11 +57,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             using var context = new GarmentFactoryDatabase();
             return context.Textiles
             .Where(rec => rec.TextileName.Contains(model.TextileName))
-           .Select(rec => new TextileViewModel
-           {
-               Id = rec.Id,
-               TextileName = rec.TextileName
-           })
+           .Select(CreateModel)
             .ToList();
 
         }

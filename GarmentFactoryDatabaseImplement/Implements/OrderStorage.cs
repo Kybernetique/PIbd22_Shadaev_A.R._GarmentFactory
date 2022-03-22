@@ -15,17 +15,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
         {
             GarmentFactoryDatabase context = new GarmentFactoryDatabase();
             return context.Orders.Include(rec => rec.Garment)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    GarmentId = rec.GarmentId,
-                    GarmentName = rec.Garment.GarmentName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
-                })
+                .Select(CreateModel)
                 .ToList();
         }
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
@@ -37,17 +27,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             GarmentFactoryDatabase context = new GarmentFactoryDatabase();
             return context.Orders.Include(rec => rec.Garment)
                 .Where(rec => rec.GarmentId == model.GarmentId)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    GarmentId = rec.GarmentId,
-                    GarmentName = rec.Garment.GarmentName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
-                })
+                .Select(CreateModel)
                 .ToList();
         }
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -145,6 +125,21 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 throw new Exception("Элемент не найден");
             }
             return order;
+        }
+
+        private static OrderViewModel CreateModel(Order order)
+        {
+            return new OrderViewModel
+            {
+                Id = order.Id,
+                GarmentId = order.GarmentId,
+                GarmentName = order.Garment.GarmentName,
+                Count = order.Count,
+                Sum = order.Sum,
+                Status = order.Status,
+                DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement
+            };
         }
     }
 }

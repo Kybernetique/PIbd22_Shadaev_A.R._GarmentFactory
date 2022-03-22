@@ -18,15 +18,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .Include(rec => rec.GarmentTextiles)
             .ThenInclude(rec => rec.Textile)
             .ToList()
-            .Select(rec => new GarmentViewModel
-            {
-                Id = rec.Id,
-                GarmentName = rec.GarmentName,
-                Price = rec.Price,
-                GarmentTextiles = rec.GarmentTextiles
-                .ToDictionary(recGT => recGT.TextileId, recPT => // ?
-               (recPT.Textile?.TextileName, recPT.Count))
-            })
+            .Select(CreateModel)
             .ToList();
         }
 
@@ -42,15 +34,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .ThenInclude(rec => rec.Textile)
             .Where(rec => rec.GarmentName.Contains(model.GarmentName))
             .ToList()
-            .Select(rec => new GarmentViewModel
-            {
-                Id = rec.Id,
-                GarmentName = rec.GarmentName,
-                Price = rec.Price,
-                GarmentTextiles = rec.GarmentTextiles
-                .ToDictionary(GT => GT.TextileId, recPT =>
-               (recPT.Textile?.TextileName, recPT.Count))
-})
+            .Select(CreateModel)
             .ToList();
         }
 
@@ -66,15 +50,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             .ThenInclude(rec => rec.Textile)
             .FirstOrDefault(rec => rec.GarmentName == model.GarmentName ||
             rec.Id == model.Id);
-            return garment != null ? new GarmentViewModel
-            {
-                Id = garment.Id,
-                GarmentName = garment.GarmentName,
-                Price = garment.Price,
-                GarmentTextiles = garment.GarmentTextiles
-            .ToDictionary(recPC => recPC.TextileId, recTC =>
-           (recTC.Textile?.TextileName, recTC.Count))
-            } :
+            return garment != null ? CreateModel(garment) :
            null;
         }
 
@@ -176,7 +152,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             }
             return garment;
         }
-/*
+
         private static GarmentViewModel CreateModel(Garment garment)
         {
             return new GarmentViewModel
@@ -185,9 +161,9 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 GarmentName = garment.GarmentName,
                 Price = garment.Price,
                 GarmentTextiles = garment.GarmentTextiles
-            .ToDictionary(recPC => recPC.TextileId,
-            recPC => (recPC.Textile?.TextileName, recPC.Count))
+            .ToDictionary(recGT => recGT.TextileId,
+            recGT => (recGT.Textile?.TextileName, recGT.Count))
             };
-        }*/
+        }
     }
 }
