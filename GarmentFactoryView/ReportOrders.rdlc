@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
-  <DataSources>
-    <DataSource Name="GarmentFactoryContractsViewModels">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>e1e0764c-3553-42e9-96a8-51f1f209525e</rd:DataSourceID>
-    </DataSource>
-  </DataSources>
-  <DataSets>
-    <DataSet Name="DataSetOrders">
-      <Query>
-        <DataSourceName>GarmentFactoryContractsViewModels</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Count">
-          <DataField>Count</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="DateCreate">
-          <DataField>DateCreate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-          <rd:TypeName>TravelCompanyContracts.Enums.OrderStatus</rd:TypeName>
-        </Field>
-        <Field Name="Sum">
-          <DataField>Sum</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="GarmentName">
-          <DataField>GarmentName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>GarmentFactoryContracts.ViewModels</rd:DataSetName>
-        <rd:TableName>ReportOrdersViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>GarmentFactoryContracts.ViewModels.ReportOrdersViewModel, GarmentFactoryContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
+	<DataSources>
+		<DataSource Name="GarmentFactoryContractsViewModels">
+			<ConnectionProperties>
+				<DataProvider>System.Data.DataSet</DataProvider>
+				<ConnectString>/* Local Connection */</ConnectString>
+			</ConnectionProperties>
+			<rd:DataSourceID>10791c83-cee8-4a38-bbd0-245fc17cefb3</rd:DataSourceID>
+		</DataSource>
+	</DataSources>
+	<DataSets>
+		<DataSet Name="DataSetOrders">
+			<Query>
+				<DataSourceName>GarmentFactoryContractsViewModels</DataSourceName>
+				<CommandText>/* Local Query */</CommandText>
+			</Query>
+			<Fields>
+				<Field Name="Id">
+					<DataField>Id</DataField>
+					<rd:TypeName>System.Int32</rd:TypeName>
+				</Field>
+				<Field Name="DateCreate">
+					<DataField>DateCreate</DataField>
+					<rd:TypeName>System.DateTime</rd:TypeName>
+				</Field>
+				<Field Name="GarmentName">
+					<DataField>GarmentName</DataField>
+					<rd:TypeName>System.String</rd:TypeName>
+				</Field>
+				<Field Name="Sum">
+					<DataField>Sum</DataField>
+					<rd:TypeName>System.Decimal</rd:TypeName>
+				</Field>
+			</Fields>
+			<rd:DataSetInfo>
+				<rd:DataSetName>GarmentFactoryContracts.ViewModels</rd:DataSetName>
+				<rd:TableName>ReportOrdersViewModel</rd:TableName>
+				<rd:ObjectDataSourceType>GarmentFactoryContracts.ViewModels.ReportOrdersViewModel, GarmentFactoryContracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+			</rd:DataSetInfo>
+		</DataSet>
+	</DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -443,7 +439,7 @@
             <DataSetName>DataSetOrders</DataSetName>
             <Top>1.41167cm</Top>
             <Height>2.17014cm</Height>
-            <Width>21.51cm</Width>
+            <Width>21.50999cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -526,19 +522,15 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>[@ReportParameterPeriod</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>]</Value>
+                    <Value>=Parameters!ReportParameterPeriod.Value</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>

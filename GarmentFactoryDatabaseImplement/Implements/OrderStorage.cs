@@ -26,7 +26,9 @@ namespace GarmentFactoryDatabaseImplement.Implements
             }
             GarmentFactoryDatabase context = new GarmentFactoryDatabase();
             return context.Orders.Include(rec => rec.Garment)
-                .Where(rec => rec.GarmentId == model.GarmentId)
+                .Where(rec => rec.GarmentId == model.GarmentId || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date
+                && rec.DateCreate.Date <= model.DateTo.Value.Date))
                 .Select(CreateModel)
                 .ToList();
         }

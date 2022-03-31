@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 using Unity.Lifetime;
@@ -10,6 +7,8 @@ using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryDatabaseImplement.Implements;
 using GarmentFactoryFileImplement;
+using GarmentFactoryBusinessLogic.OfficePackage;
+using GarmentFactoryBusinessLogic.OfficePackage.Implements;
 
 namespace GarmentFactoryView
 {
@@ -44,6 +43,10 @@ namespace GarmentFactoryView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IGarmentLogic, GarmentLogic>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
 
