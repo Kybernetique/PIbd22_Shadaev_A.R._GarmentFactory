@@ -17,10 +17,13 @@ namespace GarmentFactoryView
     {
         private readonly IOrderLogic _orderLogic;
 
-        public FormMain(IOrderLogic orderLogic)
+        private readonly IReportLogic _reportLogic;
+
+        public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
+            _reportLogic = reportLogic;
         }
 
 
@@ -135,6 +138,32 @@ namespace GarmentFactoryView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void списокТканейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _reportLogic.SaveTextilesToWordFile(new ReportBindingModel
+                {
+                    FileName = dialog.FileName
+                });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+
+        private void тканиПоИзделиямToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportGarmentTextiles>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
         }
     }
 }
