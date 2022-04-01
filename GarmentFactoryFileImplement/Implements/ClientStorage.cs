@@ -45,7 +45,7 @@ namespace GarmentFactoryFileImplement.Implements
                 return null;
             }
             return source.Clients
-                .Where(rec => rec.Email == model.Login && rec.Password == model.Password)
+                .Where(rec => rec.Login == model.Login && rec.Password == model.Password)
                 .Select(CreateModel).ToList();
         }
 
@@ -72,7 +72,7 @@ namespace GarmentFactoryFileImplement.Implements
         }
         private Client CreateModel(ClientBindingModel model, Client client)
         {
-            client.Email = model.Login;
+            client.Login = model.Login;
             client.Password = model.Password;
             client.ClientFIO = model.ClientFIO;
             return client;
@@ -83,7 +83,7 @@ namespace GarmentFactoryFileImplement.Implements
             return new ClientViewModel
             {
                 Id = client.Id,
-                Email = client.Email,
+                Login = client.Login,
                 Password = client.Password,
                 ClientFIO = client.ClientFIO,
             };

@@ -131,7 +131,7 @@ namespace GarmentFactoryFileImplement
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         ClientFIO = elem.Element("ClientFIO").Value,
-                        Email = elem.Element("Email").Value,
+                        Login = elem.Element("Login").Value,
                         Password = elem.Element("Password").Value,
                     });
                 }
@@ -211,7 +211,7 @@ namespace GarmentFactoryFileImplement
                     xElement.Add(new XElement("Client",
                     new XAttribute("Id", client.Id),
                     new XElement("ClientFIO", client.ClientFIO),
-                    new XElement("Email", client.Email),
+                    new XElement("Login", client.Login),
                     new XElement("Password", client.Password)));
                 }
                 XDocument xDocument = new XDocument(xElement);

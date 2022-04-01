@@ -12,8 +12,8 @@ namespace GarmentFactoryContracts.ViewModels
         [DisplayName("ФИО клиента")]
         public string ClientFIO { get; set; }
 
-        [DisplayName("Email")]
-        public string Email { get; set; }
+        [DisplayName("Логин")]
+        public string Login { get; set; }
 
         [DisplayName("Пароль")]
         public string Password { get; set; }

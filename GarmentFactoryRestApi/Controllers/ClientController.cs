@@ -15,11 +15,11 @@ namespace GarmentFactoryRestApi.Controllers
             _logic = logic;
         }
         [HttpGet]
-        public ClientViewModel Login(string email, string password)
+        public ClientViewModel Login(string login, string password)
         {
             var list = _logic.Read(new ClientBindingModel
             {
-                Login = email,
+                Login = login,
                 Password = password
             });
             return (list != null && list.Count > 0) ? list[0] : null;

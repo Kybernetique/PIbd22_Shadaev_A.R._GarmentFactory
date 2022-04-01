@@ -15,6 +15,11 @@ namespace GarmentFactoryContracts.ViewModels
 
         public int GarmentId { get; set; }
 
+        public int ClientId { get; set; }
+
+        [DisplayName("ФИО клиента")]
+        public string ClientFIO { get; set; }
+
         [DisplayName("Швейное изделие")]
         public string GarmentName { get; set; }
 

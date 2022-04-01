@@ -16,6 +16,7 @@ namespace GarmentFactoryClientApp.Controllers
         {
             _logger = logger;
         }
+
         public IActionResult Index()
         {
             if (Program.Client == null)
@@ -25,6 +26,7 @@ namespace GarmentFactoryClientApp.Controllers
             return
             View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
+
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -34,6 +36,7 @@ namespace GarmentFactoryClientApp.Controllers
             }
             return View(Program.Client);
         }
+
         [HttpPost]
         public void Privacy(string login, string password, string fio)
         {
@@ -49,7 +52,7 @@ namespace GarmentFactoryClientApp.Controllers
                     Password = password
                 });
                 Program.Client.ClientFIO = fio;
-                Program.Client.Email = login;
+                Program.Client.Login = login;
                 Program.Client.Password = password;
                 Response.Redirect("Index");
                 return;
@@ -66,11 +69,13 @@ namespace GarmentFactoryClientApp.Controllers
             HttpContext.TraceIdentifier
             });
         }
+
         [HttpGet]
         public IActionResult Enter()
         {
             return View();
         }
+
         [HttpPost]
         public void Enter(string login, string password)
         {
@@ -86,11 +91,13 @@ namespace GarmentFactoryClientApp.Controllers
             }
             throw new Exception("Введите логин, пароль");
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public void Register(string login, string password, string fio)
         {
@@ -109,6 +116,7 @@ namespace GarmentFactoryClientApp.Controllers
             }
             throw new Exception("Введите логин, пароль и ФИО");
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -116,20 +124,29 @@ namespace GarmentFactoryClientApp.Controllers
             APIClient.GetRequest<List<GarmentViewModel>>("api/main/getgarmentlist");
             return View();
         }
+
         [HttpPost]
-        public void Create(int product, int count, decimal sum)
+        public void Create(int garment, int count, decimal sum)
         {
             if (count == 0 || sum == 0)
             {
                 return;
             }
             //прописать запрос
+            APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
+            {
+                ClientId = (int)Program.Client.Id,
+                GarmentId = garment,
+                Count = count,
+                Sum = sum
+            });
             Response.Redirect("Index");
         }
+
         [HttpPost]
-        public decimal Calc(decimal count, int product)
+        public decimal Calc(decimal count, int garment)
         {
-            GarmentViewModel garm = APIClient.GetRequest<GarmentViewModel>($"api/main/getgarment?garmentId={product}");
+            GarmentViewModel garm = APIClient.GetRequest<GarmentViewModel>($"api/main/getgarment?garmentId={garment}");
             return count * garm.Price;
         }
     }

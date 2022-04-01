@@ -25,11 +25,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 GarmentId = model.GarmentId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
-            });
+            }); ;
         }
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
