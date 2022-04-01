@@ -45,7 +45,7 @@ namespace GarmentFactoryView
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 33;
-            this.dataGridView.Size = new System.Drawing.Size(360, 225);
+            this.dataGridView.Size = new System.Drawing.Size(360, 426);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonAdd
@@ -99,7 +99,7 @@ namespace GarmentFactoryView
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormTextiles";
-            this.Text = "FormTextiles";
+            this.Text = "Ткани";
             this.Load += new System.EventHandler(this.FormTextiles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
