@@ -28,11 +28,11 @@ namespace GarmentFactoryBusinessLogic.OfficePackage
                 {
                     ColumnName = "A",
                     RowIndex = rowIndex,
-                    Text = gt.TextileName,
+                    Text = gt.GarmentName,
                     StyleInfo = ExcelStyleInfoType.Text
                 });
                 rowIndex++;
-                foreach (var garment in gt.Garments)
+                foreach (var garment in gt.Textiles)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {

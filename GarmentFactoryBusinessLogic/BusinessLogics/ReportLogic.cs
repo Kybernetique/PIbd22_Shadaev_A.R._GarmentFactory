@@ -43,22 +43,18 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             var textiles = _textileStorage.GetFullList();
             var garments = _garmentStorage.GetFullList();
             var list = new List<ReportGarmentTextileViewModel>();
-            foreach (var textile in textiles)
+            foreach (var garment in garments)
             {
                 var record = new ReportGarmentTextileViewModel
                 {
-                    TextileName = textile.TextileName,
-                    Garments = new List<Tuple<string, int>>(),
+                    GarmentName = garment.GarmentName,
+                    Textiles = new List<Tuple<string, int>>(),
                     TotalCount = 0
                 };
-                foreach (var garment in garments)
+                foreach (var textile in garment.GarmentTextiles)
                 {
-                    if (garment.GarmentTextiles.ContainsKey(textile.Id))
-                    {
-                        record.Garments.Add(new Tuple<string, int>(garment.GarmentName,
-                        garment.GarmentTextiles[textile.Id].Item2));
-                        record.TotalCount += garment.GarmentTextiles[textile.Id].Item2;
-                    }
+                    record.Textiles.Add(new Tuple<string, int>(textile.Value.Item1, textile.Value.Item2));
+                    record.TotalCount += textile.Value.Item2;
                 }
                 list.Add(record);
             }

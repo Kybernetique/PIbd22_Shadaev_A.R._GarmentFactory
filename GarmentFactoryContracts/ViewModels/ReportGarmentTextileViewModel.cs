@@ -8,8 +8,8 @@ namespace GarmentFactoryContracts.ViewModels
 {
     public class ReportGarmentTextileViewModel
     {
-        public string TextileName { get; set; }
+        public string GarmentName { get; set; }
         public int TotalCount { get; set; }
-        public List<Tuple<string, int>> Garments { get; set; }
+        public List<Tuple<string, int>> Textiles { get; set; }
     }
 }
