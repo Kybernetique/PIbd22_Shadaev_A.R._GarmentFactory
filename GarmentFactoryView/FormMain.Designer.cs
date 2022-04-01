@@ -43,6 +43,7 @@ namespace GarmentFactoryView
             this.buttonOrderReady = new System.Windows.Forms.Button();
             this.buttonIssuedOrder = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
+            this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +65,8 @@ namespace GarmentFactoryView
             // 
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тканиToolStripMenuItem,
-            this.швейныеИзделияToolStripMenuItem});
+            this.швейныеИзделияToolStripMenuItem,
+            this.клиентыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -72,14 +74,14 @@ namespace GarmentFactoryView
             // тканиToolStripMenuItem
             // 
             this.тканиToolStripMenuItem.Name = "тканиToolStripMenuItem";
-            this.тканиToolStripMenuItem.Size = new System.Drawing.Size(262, 34);
+            this.тканиToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.тканиToolStripMenuItem.Text = "Ткани";
             this.тканиToolStripMenuItem.Click += new System.EventHandler(this.тканиToolStripMenuItem_Click);
             // 
             // швейныеИзделияToolStripMenuItem
             // 
             this.швейныеИзделияToolStripMenuItem.Name = "швейныеИзделияToolStripMenuItem";
-            this.швейныеИзделияToolStripMenuItem.Size = new System.Drawing.Size(262, 34);
+            this.швейныеИзделияToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.швейныеИзделияToolStripMenuItem.Text = "Швейные изделия";
             this.швейныеИзделияToolStripMenuItem.Click += new System.EventHandler(this.швейныеИзделияToolStripMenuItem_Click);
             // 
@@ -181,6 +183,13 @@ namespace GarmentFactoryView
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
+            // клиентыToolStripMenuItem
+            // 
+            this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.клиентыToolStripMenuItem.Text = "Клиенты";
+            this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -222,5 +231,6 @@ namespace GarmentFactoryView
         private System.Windows.Forms.ToolStripMenuItem списокИзделийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem тканиПоИзделиямToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЗаказовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
     }
 }
