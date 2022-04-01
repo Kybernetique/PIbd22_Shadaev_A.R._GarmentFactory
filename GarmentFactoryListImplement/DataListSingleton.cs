@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using GarmentFactoryContracts.BindingModels;
+using GarmentFactoryContracts.BusinessLogicsContracts;
+using GarmentFactoryContracts.StoragesContracts;
+using GarmentFactoryContracts.ViewModels;
 using GarmentFactoryListImplement.Models;
 
 namespace GarmentFactoryListImplement
@@ -16,6 +18,8 @@ namespace GarmentFactoryListImplement
         public List<Order> Orders { get; set; }
 
         public List<Garment> Garments { get; set; }
+
+        public List<Client> Clients { get; set; }
 
         private DataListSingleton()
         {
