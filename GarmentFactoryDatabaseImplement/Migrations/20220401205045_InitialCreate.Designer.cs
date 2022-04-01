@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GarmentFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(GarmentFactoryDatabase))]
-    [Migration("20220322095438_InitialCreate")]
+    [Migration("20220401205045_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,30 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Garment", b =>
                 {
@@ -72,6 +96,9 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -91,6 +118,8 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("GarmentId");
 
@@ -134,13 +163,26 @@ namespace GarmentFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("GarmentFactoryDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GarmentFactoryDatabaseImplement.Models.Garment", "Garment")
                         .WithMany("Orders")
                         .HasForeignKey("GarmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("Garment");
+                });
+
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Garment", b =>

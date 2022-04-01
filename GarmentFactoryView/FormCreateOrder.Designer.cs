@@ -37,12 +37,14 @@ namespace GarmentFactoryView
             this.textBoxSum = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.comboBoxClient = new System.Windows.Forms.ComboBox();
+            this.labelClient = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelGarment
             // 
             this.labelGarment.AutoSize = true;
-            this.labelGarment.Location = new System.Drawing.Point(17, 15);
+            this.labelGarment.Location = new System.Drawing.Point(13, 68);
             this.labelGarment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelGarment.Name = "labelGarment";
             this.labelGarment.Size = new System.Drawing.Size(162, 25);
@@ -52,7 +54,7 @@ namespace GarmentFactoryView
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(17, 65);
+            this.labelCount.Location = new System.Drawing.Point(13, 111);
             this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(111, 25);
@@ -62,7 +64,7 @@ namespace GarmentFactoryView
             // labelSum
             // 
             this.labelSum.AutoSize = true;
-            this.labelSum.Location = new System.Drawing.Point(17, 113);
+            this.labelSum.Location = new System.Drawing.Point(13, 152);
             this.labelSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSum.Name = "labelSum";
             this.labelSum.Size = new System.Drawing.Size(71, 25);
@@ -72,7 +74,7 @@ namespace GarmentFactoryView
             // comboBoxGarment
             // 
             this.comboBoxGarment.FormattingEnabled = true;
-            this.comboBoxGarment.Location = new System.Drawing.Point(179, 10);
+            this.comboBoxGarment.Location = new System.Drawing.Point(192, 68);
             this.comboBoxGarment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxGarment.Name = "comboBoxGarment";
             this.comboBoxGarment.Size = new System.Drawing.Size(335, 33);
@@ -81,7 +83,7 @@ namespace GarmentFactoryView
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(179, 60);
+            this.textBoxCount.Location = new System.Drawing.Point(192, 111);
             this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(335, 31);
@@ -90,15 +92,16 @@ namespace GarmentFactoryView
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(179, 108);
+            this.textBoxSum.Location = new System.Drawing.Point(192, 152);
             this.textBoxSum.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxSum.Name = "textBoxSum";
+            this.textBoxSum.ReadOnly = true;
             this.textBoxSum.Size = new System.Drawing.Size(335, 31);
             this.textBoxSum.TabIndex = 5;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(293, 157);
+            this.buttonSave.Location = new System.Drawing.Point(305, 193);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(107, 38);
@@ -109,7 +112,7 @@ namespace GarmentFactoryView
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(409, 157);
+            this.buttonCancel.Location = new System.Drawing.Point(420, 193);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(107, 38);
@@ -118,11 +121,30 @@ namespace GarmentFactoryView
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // comboBoxClient
+            // 
+            this.comboBoxClient.FormattingEnabled = true;
+            this.comboBoxClient.Location = new System.Drawing.Point(192, 27);
+            this.comboBoxClient.Name = "comboBoxClient";
+            this.comboBoxClient.Size = new System.Drawing.Size(335, 33);
+            this.comboBoxClient.TabIndex = 8;
+            // 
+            // labelClient
+            // 
+            this.labelClient.AutoSize = true;
+            this.labelClient.Location = new System.Drawing.Point(13, 27);
+            this.labelClient.Name = "labelClient";
+            this.labelClient.Size = new System.Drawing.Size(71, 25);
+            this.labelClient.TabIndex = 9;
+            this.labelClient.Text = "Клиент:";
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 205);
+            this.ClientSize = new System.Drawing.Size(557, 252);
+            this.Controls.Add(this.labelClient);
+            this.Controls.Add(this.comboBoxClient);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxSum);
@@ -150,5 +172,7 @@ namespace GarmentFactoryView
         private System.Windows.Forms.TextBox textBoxSum;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBoxClient;
+        private System.Windows.Forms.Label labelClient;
     }
 }

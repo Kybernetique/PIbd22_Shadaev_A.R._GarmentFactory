@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
@@ -12,10 +11,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
     public class ClientLogic : IClientLogic
     {
         private readonly IClientStorage _clientStorage;
+
         public ClientLogic(IClientStorage clientStorage)
         {
             _clientStorage = clientStorage;
         }
+
         public void CreateOrUpdate(ClientBindingModel model)
         {
             var element = _clientStorage.GetElement(new ClientBindingModel { Login = model.Login });
@@ -37,8 +38,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         {
             var element = _clientStorage.GetElement(new ClientBindingModel
             {
-                Id =
-            model.Id
+                Id = model.Id
             });
             if (element == null)
             {

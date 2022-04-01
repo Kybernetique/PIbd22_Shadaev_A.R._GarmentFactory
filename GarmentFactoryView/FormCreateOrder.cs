@@ -18,13 +18,15 @@ namespace GarmentFactoryView
         private readonly IGarmentLogic _logicG;
 
         private readonly IOrderLogic _logicO;
-  
 
-        public FormCreateOrder(IGarmentLogic logicG, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+
+        public FormCreateOrder(IGarmentLogic logicG, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicG = logicG;
             _logicO = logicO;
+            _logicC = logicC;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -33,12 +35,22 @@ namespace GarmentFactoryView
             {
                 List<GarmentViewModel> listG = _logicG.Read(null);
 
+                List<ClientViewModel> listC = _logicC.Read(null);
+
                 if (listG != null)
                 {
                     comboBoxGarment.DisplayMember = "GarmentName";
                     comboBoxGarment.ValueMember = "Id";
                     comboBoxGarment.DataSource = listG;
                     comboBoxGarment.SelectedItem = null;
+                }
+
+                if (listC != null)
+                {
+                    comboBoxClient.DataSource = listC;
+                    comboBoxClient.DisplayMember = "ClientFIO";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.SelectedItem = null;
                 }
             }
             catch (Exception ex)
@@ -85,11 +97,18 @@ namespace GarmentFactoryView
                 MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     GarmentId = Convert.ToInt32(comboBoxGarment.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

@@ -40,7 +40,6 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         // Получение списка компонент с указанием, в каких изделиях используются
         public List<ReportGarmentTextileViewModel> GetGarmentTextile()
         {
-            var textiles = _textileStorage.GetFullList();
             var garments = _garmentStorage.GetFullList();
             var list = new List<ReportGarmentTextileViewModel>();
             foreach (var garment in garments)
