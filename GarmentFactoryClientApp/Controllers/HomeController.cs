@@ -65,8 +65,7 @@ namespace GarmentFactoryClientApp.Controllers
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ??
-            HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
 
@@ -104,8 +103,7 @@ namespace GarmentFactoryClientApp.Controllers
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
             && !string.IsNullOrEmpty(fio))
             {
-                APIClient.PostRequest("api/client/register", new
-                ClientBindingModel
+                APIClient.PostRequest("api/client/register", new ClientBindingModel
                 {
                     ClientFIO = fio,
                     Login = login,
@@ -120,8 +118,7 @@ namespace GarmentFactoryClientApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Products =
-            APIClient.GetRequest<List<GarmentViewModel>>("api/main/getgarmentlist");
+            ViewBag.Garments = APIClient.GetRequest<List<GarmentViewModel>>("api/main/getgarmentlist");
             return View();
         }
 
@@ -135,7 +132,7 @@ namespace GarmentFactoryClientApp.Controllers
             //прописать запрос
             APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
             {
-                ClientId = (int)Program.Client.Id,
+                ClientId = Program.Client.Id,
                 GarmentId = garment,
                 Count = count,
                 Sum = sum
