@@ -14,7 +14,7 @@ namespace GarmentFactoryContracts.BusinessLogicsContracts
         List<ReportOrdersViewModel> GetOrders(ReportBindingModel model);
         
         // Сохранение тканей в файл-Word
-        void SaveTextilesToWordFile(ReportBindingModel model);
+        void SaveGarmentsToWordFile(ReportBindingModel model);
 
         // Сохранение тканей с указаеним швейных изделий в файл-Excel
         void SaveGarmentTextileToExcelFile(ReportBindingModel model);

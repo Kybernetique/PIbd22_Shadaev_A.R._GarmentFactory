@@ -19,12 +19,13 @@ WordTextProperties { Bold = true, Size = "24", }) },
                     JustificationType = WordJustificationType.Center
                 }
             });
-            foreach (var textile in info.Textiles)
+            foreach (var garment in info.Garments)
             {
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = new List<(string, WordTextProperties)> {
-(textile.TextileName, new WordTextProperties { Size = "24", }) },
+                    Texts = new List<(string, WordTextProperties)>
+                    {(garment.GarmentName + "    -    ", new WordTextProperties { Size = "24", Bold = true}),
+                    (garment.Price.ToString() , new WordTextProperties{ Size = "24", })},
                     TextProperties = new WordTextProperties
                     {
                         Size = "24",

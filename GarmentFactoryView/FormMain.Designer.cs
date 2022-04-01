@@ -34,7 +34,7 @@ namespace GarmentFactoryView
             this.тканиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.швейныеИзделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокТканейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокИзделийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиПоИзделиямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -86,19 +86,19 @@ namespace GarmentFactoryView
             // отчетыToolStripMenuItem
             // 
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.списокТканейToolStripMenuItem,
+            this.списокИзделийToolStripMenuItem,
             this.тканиПоИзделиямToolStripMenuItem,
             this.списокЗаказовToolStripMenuItem});
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
             this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
             // 
-            // списокТканейToolStripMenuItem
+            // списокИзделийToolStripMenuItem
             // 
-            this.списокТканейToolStripMenuItem.Name = "списокТканейToolStripMenuItem";
-            this.списокТканейToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.списокТканейToolStripMenuItem.Text = "Список тканей";
-            this.списокТканейToolStripMenuItem.Click += new System.EventHandler(this.списокТканейToolStripMenuItem_Click);
+            this.списокИзделийToolStripMenuItem.Name = "списокИзделийToolStripMenuItem";
+            this.списокИзделийToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.списокИзделийToolStripMenuItem.Text = "Список изделий";
+            this.списокИзделийToolStripMenuItem.Click += new System.EventHandler(this.списокИзделийToolStripMenuItem_Click);
             // 
             // тканиПоИзделиямToolStripMenuItem
             // 
@@ -219,7 +219,7 @@ namespace GarmentFactoryView
         private System.Windows.Forms.Button buttonIssuedOrder;
         private System.Windows.Forms.Button buttonRef;
         private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокТканейToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem списокИзделийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem тканиПоИзделиямToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЗаказовToolStripMenuItem;
     }

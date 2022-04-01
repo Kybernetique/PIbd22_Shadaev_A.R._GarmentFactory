@@ -84,14 +84,14 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             .ToList();
         }
 
-        // Сохранение компонент в файл-Word
-        public void SaveTextilesToWordFile(ReportBindingModel model)
+        // Сохранение швейных изделий в файл-Word
+        public void SaveGarmentsToWordFile(ReportBindingModel model)
         {
             _saveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список тканей",
-                Textiles = _textileStorage.GetFullList()
+                Title = "Список изделий",
+                Garments = _garmentStorage.GetFullList()
             });
         }
 

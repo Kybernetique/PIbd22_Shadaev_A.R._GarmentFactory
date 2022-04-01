@@ -140,12 +140,12 @@ namespace GarmentFactoryView
             LoadData();
         }
 
-        private void списокТканейToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокИзделийToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveTextilesToWordFile(new ReportBindingModel
+                _reportLogic.SaveGarmentsToWordFile(new ReportBindingModel
                 {
                     FileName = dialog.FileName
                 });

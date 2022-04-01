@@ -57,8 +57,7 @@ namespace GarmentFactoryBusinessLogic.OfficePackage.Implements
                 {
                     paragraphMarkRunProperties.AppendChild(new FontSize
                     {
-                        Val =
-                    paragraphProperties.Size
+                        Val = paragraphProperties.Size
                     });
                 }
                 properties.AppendChild(paragraphMarkRunProperties);

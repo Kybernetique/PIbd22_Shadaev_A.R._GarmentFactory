@@ -48,8 +48,8 @@ namespace GarmentFactoryView
                 reportViewer.LocalReport.DataSources.Clear();
                 reportViewer.LocalReport.DataSources.Add(source);
                 var parameters = new[] { new ReportParameter("ReportParameterPeriod",
-                " c " + dateTimePickerFrom.Value.ToShortDateString() +
-                " по " + dateTimePickerTo.Value.ToShortDateString()) };
+                    " c " + dateTimePickerFrom.Value.ToShortDateString() +
+                    " по " + dateTimePickerTo.Value.ToShortDateString()) };
                 reportViewer.LocalReport.SetParameters(parameters);
                 reportViewer.RefreshReport();
             }

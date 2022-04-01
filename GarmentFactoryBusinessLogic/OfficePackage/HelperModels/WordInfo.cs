@@ -7,6 +7,6 @@ namespace GarmentFactoryBusinessLogic.OfficePackage.HelperModels
     {
         public string FileName { get; set; }
         public string Title { get; set; }
-        public List<TextileViewModel> Textiles { get; set; }
+        public List<GarmentViewModel> Garments { get; set; }
     }
 }

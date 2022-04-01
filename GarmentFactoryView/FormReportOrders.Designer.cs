@@ -107,7 +107,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1248, 450);
+            this.ClientSize = new System.Drawing.Size(1248, 650);
             this.Controls.Add(this.panel);
             this.Name = "FormReportOrders";
             this.Text = "Заказы";
