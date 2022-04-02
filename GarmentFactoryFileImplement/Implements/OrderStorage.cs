@@ -8,7 +8,7 @@ using GarmentFactoryFileImplement.Models;
 
 namespace GarmentFactoryFileImplement.Implements
 {
-    public class OrderStorage
+    public class OrderStorage : IOrderStorage
     {
         private readonly FileDataListSingleton source;
         public OrderStorage()

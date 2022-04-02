@@ -167,7 +167,7 @@ namespace GarmentFactoryFileImplement
         {
             if (Orders != null)
             {
-                var xElement = new XElement("Orderss");
+                var xElement = new XElement("Orders");
                 foreach (var order in Orders)
                 {
                     xElement.Add(new XElement("Order",
@@ -190,10 +190,10 @@ namespace GarmentFactoryFileImplement
                 var xElement = new XElement("Garments");
                 foreach (var garment in Garments)
                 {
-                    var compElement = new XElement("GarmentTextiles");
+                    var texElement = new XElement("GarmentTextiles");
                     foreach (var textile in garment.GarmentTextiles)
                     {
-                        compElement.Add(new XElement("GarmentTextile",
+                        texElement.Add(new XElement("GarmentTextile",
                         new XElement("Key", textile.Key),
                         new XElement("Value", textile.Value)));
                     }
@@ -201,7 +201,7 @@ namespace GarmentFactoryFileImplement
                      new XAttribute("Id", garment.Id),
                      new XElement("GarmentName", garment.GarmentName),
                      new XElement("Price", garment.Price),
-                     compElement));
+                     texElement));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(GarmentFileName);

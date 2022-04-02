@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GarmentFactoryFileImplement.Implements
 {
-    public class GarmentStorage
+    public class GarmentStorage : IGarmentStorage
     {
         private readonly FileDataListSingleton source;
 
