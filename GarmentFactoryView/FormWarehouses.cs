@@ -6,19 +6,14 @@ using Unity;
 
 namespace GarmentFactoryView
 {
-    public partial class FormTextiles : Form
+    public partial class FormWarehouses : Form
     {
-        private readonly ITextileLogic _logic;
+        private readonly IWarehouseLogic _logic;
 
-        public FormTextiles(ITextileLogic logic)
+        public FormWarehouses(IWarehouseLogic logic)
         {
             InitializeComponent();
             _logic = logic;
-        }
-
-        private void FormTextiles_Load(object sender, EventArgs e)
-        {
-            LoadData();
         }
 
         private void LoadData()
@@ -31,35 +26,19 @@ namespace GarmentFactoryView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[4].Visible = false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+               MessageBoxIcon.Error);
             }
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormTextile>();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                LoadData();
-            }
-        }
-
-        private void buttonChange_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                var form = Program.Container.Resolve<FormTextile>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
-            }
+            LoadData();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -69,11 +48,10 @@ namespace GarmentFactoryView
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int id =
-                   Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                    int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        _logic.Delete(new TextileBindingModel { Id = id });
+                        _logic.Delete(new WarehouseBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -85,7 +63,29 @@ namespace GarmentFactoryView
             }
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonChange_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var form = Program.Container.Resolve<FormWarehouse>();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
+            }
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouse>();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
+        }
+
+        private void FormWarehouses_Load(object sender, EventArgs e)
         {
             LoadData();
         }

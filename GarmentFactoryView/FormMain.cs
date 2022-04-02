@@ -69,6 +69,18 @@ namespace GarmentFactoryView
             LoadData();
         }
 
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouseTextile>();
+            form.ShowDialog();
+        }
+
         private void buttonTakeOrderInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -136,5 +148,7 @@ namespace GarmentFactoryView
         {
             LoadData();
         }
+
+
     }
 }
