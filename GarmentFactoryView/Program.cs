@@ -3,8 +3,7 @@ using System.Windows.Forms;
 using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryFileImplement;
-using GarmentFactoryListImplement.Implements;
+using GarmentFactoryFileImplement.Implements;
 using Unity;
 using Unity.Lifetime;
 
@@ -58,7 +57,6 @@ namespace GarmentFactoryView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
-            FileDataListSingleton.GetInstance().SaveData();
         }
     }
 }
