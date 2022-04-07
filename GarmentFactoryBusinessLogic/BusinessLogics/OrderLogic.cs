@@ -107,7 +107,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             }
             if (!_warehouseStorage.TakeTextileFromWarehouse(_garmentStorage.GetElement(new GarmentBindingModel { Id = order.GarmentId }).GarmentTextiles, order.Count))
             {
-                throw new Exception("Недостаточно условий для принятия в работу заказа");
+                throw new Exception("Недостаточно тканей для принятия в работу заказа");
             }
             _orderStorage.Update(new OrderBindingModel
             {
