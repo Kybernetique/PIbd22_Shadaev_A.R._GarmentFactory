@@ -86,20 +86,20 @@ namespace GarmentFactoryFileImplement.Implements
                 int reqCount = textile.Value.Item2 * orderCount;
                 foreach (var warehouse in source.Warehouses)
                 {
-                    var warehouseCond = warehouse.WarehouseTextiles;
-                    if (!warehouseCond.ContainsKey(textile.Key))
+                    var warehouseTextile = warehouse.WarehouseTextiles;
+                    if (!warehouseTextile.ContainsKey(textile.Key))
                     {
                         continue;
                     }
-                    if (warehouseCond[textile.Key] > reqCount)
+                    if (warehouseTextile[textile.Key] > reqCount)
                     {
-                        warehouseCond[textile.Key] -= reqCount;
+                        warehouseTextile[textile.Key] -= reqCount;
                         break;
                     }
-                    else if (warehouseCond[textile.Key] <= reqCount)
+                    else if (warehouseTextile[textile.Key] <= reqCount)
                     {
-                        reqCount -= warehouseCond[textile.Key];
-                        warehouseCond.Remove(textile.Key);
+                        reqCount -= warehouseTextile[textile.Key];
+                        warehouseTextile.Remove(textile.Key);
                     }
                     if (reqCount == 0)
                     {
