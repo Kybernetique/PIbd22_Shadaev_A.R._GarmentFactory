@@ -121,9 +121,9 @@ namespace GarmentFactoryFileImplement.Implements
                 GarmentName = garment.GarmentName,
                 Price = garment.Price,
                 GarmentTextiles = garment.GarmentTextiles
-            .ToDictionary(recPC => recPC.Key, recPC =>
+            .ToDictionary(recGT => recGT.Key, recGT =>
             (source.Textiles.FirstOrDefault(recC => recC.Id ==
-            recPC.Key)?.TextileName, recPC.Value))
+            recGT.Key)?.TextileName, recGT.Value))
             };
         }
     }

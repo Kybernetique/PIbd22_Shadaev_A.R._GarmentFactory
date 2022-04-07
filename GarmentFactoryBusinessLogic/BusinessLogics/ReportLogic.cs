@@ -37,7 +37,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             _saveToPdf = saveToPdf;
         }
 
-        // Получение списка компонент с указанием, в каких изделиях используются
+        // Получение списка тканей с указанием, в каких изделиях используются
         public List<ReportGarmentTextileViewModel> GetGarmentTextile()
         {
             var textiles = _textileStorage.GetFullList();
@@ -91,7 +91,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             });
         }
 
-        // Сохранение компонент с указаеним продуктов в файл-Excel
+        // Сохранение тканей с указаеним продуктов в файл-Excel
         public void SaveGarmentTextileToExcelFile(ReportBindingModel model)
         {
             _saveToExcel.CreateReport(new ExcelInfo

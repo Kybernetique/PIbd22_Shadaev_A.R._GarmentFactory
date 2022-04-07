@@ -54,18 +54,18 @@ namespace GarmentFactoryListImplement.Implements
             // требуется дополнительно получить список тканей для швейного изделия с
             // названиями и их количество
             var garmentTextiles = new Dictionary<int, (string, int)>();
-            foreach (var pc in garment.GarmentTextiles)
+            foreach (var gt in garment.GarmentTextiles)
             {
                 string textileName = string.Empty;
                 foreach (var textile in source.Textiles)
                 {
-                    if (pc.Key == textile.Id)
+                    if (gt.Key == textile.Id)
                     {
                         textileName = textile.TextileName;
                         break;
                     }
                 }
-                garmentTextiles.Add(pc.Key, (textileName, pc.Value));
+                garmentTextiles.Add(gt.Key, (textileName, gt.Value));
             }
             return new GarmentViewModel
             {
