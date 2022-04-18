@@ -64,7 +64,8 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 Id = order.Id,
                 GarmentId = order.GarmentId,
                 GarmentName = order.Garment.GarmentName,
-                ImplementerId = model.ImplementerId,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                 ClientId = order.ClientId,
                 ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == order.ClientId)?.ClientFIO,
                 Count = order.Count,
@@ -81,6 +82,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             Order order = new Order
             {
                 GarmentId = model.GarmentId,
+                ImplementerId = model.ImplementerId,
                 ClientId = (int)model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -103,6 +105,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             }
             element.GarmentId = model.GarmentId;
             element.ClientId = (int)model.ClientId;
+            element.ImplementerId = model.ImplementerId;
             element.Count = model.Count;
             element.Sum = model.Sum;
             element.Status = model.Status;
