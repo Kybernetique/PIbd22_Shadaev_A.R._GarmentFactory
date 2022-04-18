@@ -35,6 +35,21 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Warehouses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WarehouseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResponsibleFullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Warehouses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -85,6 +100,33 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WarehouseTextiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TextileId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WarehouseTextiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WarehouseTextiles_Textiles_TextileId",
+                        column: x => x.TextileId,
+                        principalTable: "Textiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WarehouseTextiles_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_GarmentTextiles_GarmentId",
                 table: "GarmentTextiles",
@@ -99,6 +141,16 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 name: "IX_Orders_GarmentId",
                 table: "Orders",
                 column: "GarmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WarehouseTextiles_TextileId",
+                table: "WarehouseTextiles",
+                column: "TextileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WarehouseTextiles_WarehouseId",
+                table: "WarehouseTextiles",
+                column: "WarehouseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,10 +162,16 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Textiles");
+                name: "WarehouseTextiles");
 
             migrationBuilder.DropTable(
                 name: "Garments");
+
+            migrationBuilder.DropTable(
+                name: "Textiles");
+
+            migrationBuilder.DropTable(
+                name: "Warehouses");
         }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GarmentFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(GarmentFactoryDatabase))]
-    [Migration("20220322095438_InitialCreate")]
+    [Migration("20220418213609_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,6 +113,54 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                     b.ToTable("Textiles");
                 });
 
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponsibleFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
+                });
+
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.WarehouseTextile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TextileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TextileId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseTextiles");
+                });
+
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.GarmentTextile", b =>
                 {
                     b.HasOne("GarmentFactoryDatabaseImplement.Models.Garment", "Garment")
@@ -143,6 +191,25 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                     b.Navigation("Garment");
                 });
 
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.WarehouseTextile", b =>
+                {
+                    b.HasOne("GarmentFactoryDatabaseImplement.Models.Textile", "Textile")
+                        .WithMany("WarehouseTextiles")
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GarmentFactoryDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseTextiles")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Textile");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Garment", b =>
                 {
                     b.Navigation("GarmentTextiles");
@@ -153,6 +220,13 @@ namespace GarmentFactoryDatabaseImplement.Migrations
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Textile", b =>
                 {
                     b.Navigation("GarmentTextiles");
+
+                    b.Navigation("WarehouseTextiles");
+                });
+
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Navigation("WarehouseTextiles");
                 });
 #pragma warning restore 612, 618
         }
