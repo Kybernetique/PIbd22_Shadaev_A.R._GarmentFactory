@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GarmentFactoryContracts.BindingModels;
-using GarmentFactoryContracts.BusinessLogicsContracts;
-using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryContracts.ViewModels;
 using GarmentFactoryListImplement.Models;
 
 namespace GarmentFactoryListImplement
@@ -21,11 +17,15 @@ namespace GarmentFactoryListImplement
 
         public List<Client> Clients { get; set; }
 
+        public List<Implementer> Implementers { get; set; }
+
         private DataListSingleton()
         {
             Textiles = new List<Textile>();
             Orders = new List<Order>();
             Garments = new List<Garment>();
+            Clients = new List<Client>();
+            Implementers = new List<Implementer>();
         }
 
         public static DataListSingleton GetInstance()

@@ -46,9 +46,10 @@ namespace GarmentFactoryListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.Id.Equals(model.Id) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
-                (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
-                && order.DateCreate.Date <= model.DateTo.Value.Date) || (model.ClientId.HasValue && order.ClientId == model.ClientId))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate == model.DateCreate) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && order.ClientId == model.ClientId) || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status) ||
+                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -113,6 +114,7 @@ namespace GarmentFactoryListImplement.Implements
         {
             order.GarmentId = model.GarmentId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -140,6 +142,16 @@ namespace GarmentFactoryListImplement.Implements
                 if (client.Id == order.GarmentId)
                 {
                     clientFIO = client.ClientFIO;
+                    break;
+                }
+            }
+            string implementerFIO = null;
+            for (int i = 0; i < source.Implementers.Count; i++)
+            {
+                if (source.Implementers[i].Id == order.ImplementerId)
+                {
+                    implementerFIO = source.Implementers[i].ImplementerFIO;
+                    break;
                 }
             }
 
@@ -149,7 +161,9 @@ namespace GarmentFactoryListImplement.Implements
                 GarmentId = order.GarmentId,
                 GarmentName = garmentName,
                 ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 ClientFIO = clientFIO,
+                ImplementerFIO = implementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

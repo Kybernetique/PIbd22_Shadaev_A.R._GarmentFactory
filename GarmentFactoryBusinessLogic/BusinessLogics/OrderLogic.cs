@@ -45,6 +45,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
+                ClientId=order.ClientId,
+                ImplementerId=order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -68,6 +70,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -104,6 +108,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
+                ClientId=order.ClientId,
+                ImplementerId = model.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
