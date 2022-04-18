@@ -15,11 +15,12 @@ namespace GarmentFactoryFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string GarmentFileName = "Garment.xml";
         private readonly string ClientFileName = "Client.xml";
+        private readonly string ImplementerFileName = "Implementer.xml";
         public List<Textile> Textiles { get; set; }
         public List<Order> Orders { get; set; }
         public List<Garment> Garments { get; set; }
-
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
 
         private FileDataListSingleton()
         {
@@ -44,6 +45,7 @@ namespace GarmentFactoryFileImplement
             SaveOrders();
             SaveGarments();
             SaveClients();
+            SaveImplementers();
         }
 
         private List<Textile> LoadTextiles()
@@ -139,6 +141,27 @@ namespace GarmentFactoryFileImplement
             return list;
         }
 
+        private List<Implementer> LoadImplementers()
+        {
+            var list = new List<Implementer>();
+            if (File.Exists(ImplementerFileName))
+            {
+                var xDocument = XDocument.Load(ImplementerFileName);
+                var xElements = xDocument.Root.Elements("Imlementer").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Implementer
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ImplementerFIO = elem.Attribute("ImplementerFIO").Value,
+                        PauseTime = Convert.ToInt32(elem.Attribute("PauseTime").Value),
+                        WorkingTime = Convert.ToInt32(elem.Attribute("WorkingTime").Value)
+                    });
+                }
+            }
+            return list;
+        }
+
         private void SaveTextiles()
         {
             if (Textiles != null)
@@ -217,6 +240,21 @@ namespace GarmentFactoryFileImplement
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ClientFileName);
             }
+        }
+
+        private void SaveImplementers()
+        {
+            var xElement = new XElement("Implementers");
+            foreach (var implementer in Implementers)
+            {
+                xElement.Add(new XElement("Implementer",
+                    new XAttribute("Id", implementer.Id),
+                    new XAttribute("ImplementerFIO", implementer.ImplementerFIO),
+                    new XAttribute("WorkingTime", implementer.WorkingTime),
+                    new XAttribute("PauseTime", implementer.PauseTime)));
+            }
+            var xDocument = new XDocument(xElement);
+            xDocument.Save(ImplementerFileName);
         }
     }
 
