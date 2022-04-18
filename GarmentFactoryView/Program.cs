@@ -3,9 +3,14 @@ using System.Windows.Forms;
 using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
+<<<<<<< HEAD
 using GarmentFactoryFileImplement.Implements;
 using Unity;
 using Unity.Lifetime;
+=======
+using GarmentFactoryDatabaseImplement.Implements;
+using GarmentFactoryFileImplement;
+>>>>>>> 2513276c292aa09cc28ebb7d673499f79fd57502
 
 namespace GarmentFactoryView
 {
