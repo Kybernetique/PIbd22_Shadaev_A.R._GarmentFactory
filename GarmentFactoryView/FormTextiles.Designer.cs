@@ -49,7 +49,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(258, 12);
+            this.buttonAdd.Location = new System.Drawing.Point(378, 12);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 1;
@@ -59,7 +59,7 @@
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(258, 41);
+            this.buttonChange.Location = new System.Drawing.Point(378, 41);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(75, 23);
             this.buttonChange.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(258, 70);
+            this.buttonUpdate.Location = new System.Drawing.Point(378, 70);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdate.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(258, 99);
+            this.buttonDelete.Location = new System.Drawing.Point(378, 99);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 4;

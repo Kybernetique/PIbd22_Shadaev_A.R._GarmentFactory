@@ -171,5 +171,33 @@ namespace GarmentFactoryView
             var form = Program.Container.Resolve<FormReportOrders>();
             form.ShowDialog();
         }
+
+        private void информацияОЗаказахToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportTotalOrders>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void тканиПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportWarehouseTextiles>();
+            form.ShowDialog();
+        }
     }
 }

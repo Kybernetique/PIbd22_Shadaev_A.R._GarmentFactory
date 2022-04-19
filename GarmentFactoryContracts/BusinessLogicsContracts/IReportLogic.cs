@@ -13,7 +13,7 @@ namespace GarmentFactoryContracts.BusinessLogicsContracts
         // Получение списка заказов за определенный период
         List<ReportOrdersViewModel> GetOrders(ReportBindingModel model);
 
-        // Получение списка условий на складах
+        // Получение списка тканей на складах
         List<ReportWarehouseTextileViewModel> GetWarehouseTextiles();
 
         // Получение списка заказов за определенный период
