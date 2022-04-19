@@ -18,6 +18,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
 
         private readonly IOrderStorage _orderStorage;
 
+        private readonly IWarehouseStorage _warehouseStorage;
+
         private readonly AbstractSaveToExcel _saveToExcel;
 
         private readonly AbstractSaveToWord _saveToWord;
@@ -25,13 +27,14 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         private readonly AbstractSaveToPdf _saveToPdf;
 
         public ReportLogic(IGarmentStorage garmentStorage, ITextileStorage
-        textileStorage, IOrderStorage orderStorage,
+        textileStorage, IOrderStorage orderStorage, IWarehouseStorage warehouseStorage,
         AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord,
         AbstractSaveToPdf saveToPdf)
         {
             _garmentStorage = garmentStorage;
             _textileStorage = textileStorage;
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
             _saveToExcel = saveToExcel;
             _saveToWord = saveToWord;
             _saveToPdf = saveToPdf;
@@ -40,7 +43,6 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         // Получение списка тканей с указанием, в каких изделиях используются
         public List<ReportGarmentTextileViewModel> GetGarmentTextile()
         {
-            var textiles = _textileStorage.GetFullList();
             var garments = _garmentStorage.GetFullList();
             var list = new List<ReportGarmentTextileViewModel>();
             foreach (var garment in garments)
@@ -112,6 +114,71 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
                 Orders = GetOrders(model)
+            });
+        }
+
+        public List<ReportWarehouseTextileViewModel> GetWarehouseTextiles()
+        {
+            var garments = _warehouseStorage.GetFullList();
+            var list = new List<ReportWarehouseTextileViewModel>();
+            foreach (var garment in garments)
+            {
+                var record = new ReportWarehouseTextileViewModel
+                {
+                    WarehouseName = garment.WarehouseName,
+                    Textiles = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var textile in garment.WarehouseTextiles)
+                {
+                    record.Textiles.Add(new Tuple<string, int>(textile.Value.Item1, textile.Value.Item2));
+                    record.TotalCount += textile.Value.Item2;
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+
+        public void SaveWarehouseTextileToExcelFile(ReportBindingModel model)
+        {
+            _saveToExcel.CreateWarehouseReport(new ExcelInfoWarehouses
+            {
+                FileName = model.FileName,
+                Title = "Список тканей складов",
+                WarehouseTextiles = GetWarehouseTextiles()
+            });
+        }
+
+        public void SaveWarehousesToWordFile(ReportBindingModel model)
+        {
+            _saveToWord.CreateWarehouseDoc(new WordInfoWarehouses
+            {
+                FileName = model.FileName,
+                Title = "Список складов",
+                Warehouses = _warehouseStorage.GetFullList()
+            });
+        }
+
+        public List<ReportTotalOrdersViewModel> GetTotalOrders()
+        {
+            return _orderStorage.GetFullList()
+                .GroupBy(order => order.DateCreate.ToLongDateString())
+                .Select(rec => new ReportTotalOrdersViewModel
+                {
+                    DateCreate = Convert.ToDateTime(rec.Key),
+                    TotalCount = rec.Count(),
+                    TotalSum = rec.Sum(order => order.Sum)
+                })
+                .ToList();
+        }
+
+        public void SaveTotalOrdersToPdfFile(ReportBindingModel model)
+        {
+            _saveToPdf.CreateDocTotalOrders(new PdfInfoTotalOrders
+            {
+                FileName = model.FileName,
+                Title = "Список заказов за весь период",
+                TotalOrders = GetTotalOrders()
             });
         }
     }
