@@ -113,7 +113,6 @@ namespace GarmentFactoryView
                     LoadData();
                 }
             }
-
         }
 
         private void buttonDel_Click(object sender, EventArgs e)

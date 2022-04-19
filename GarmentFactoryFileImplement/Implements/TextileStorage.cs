@@ -16,18 +16,22 @@ namespace GarmentFactoryFileImplement.Implements
         {
             source = FileDataListSingleton.GetInstance();
         }
-        public void Delete(TextileBindingModel model)
+        public List<TextileViewModel> GetFullList()
         {
-            Textile element = source.Textiles.FirstOrDefault(rec => rec.Id ==
-            model.Id);
-            if (element != null)
+            return source.Textiles
+                .Select(CreateModel)
+                .ToList();
+        }
+        public List<TextileViewModel> GetFilteredList(TextileBindingModel model)
+        {
+            if (model == null)
             {
-                source.Textiles.Remove(element);
+                return null;
             }
-            else
-            {
-            throw new Exception("Элемент не найден");
-            }
+            return source.Textiles
+                .Where(rec => rec.TextileName.Contains(model.TextileName))
+                .Select(CreateModel)
+                .ToList();
         }
 
         public TextileViewModel GetElement(TextileBindingModel model)
@@ -37,34 +41,13 @@ namespace GarmentFactoryFileImplement.Implements
                 return null;
             }
             var textile = source.Textiles
-            .FirstOrDefault(rec => rec.TextileName == model.TextileName ||
-            rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.TextileName == model.TextileName || rec.Id == model.Id);
             return textile != null ? CreateModel(textile) : null;
-        }
-
-        public List<TextileViewModel> GetFilteredList(TextileBindingModel model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-            return source.Textiles
-            .Where(rec => rec.TextileName.Contains(model.TextileName))
-            .Select(CreateModel)
-            .ToList();
-        }
-
-        public List<TextileViewModel> GetFullList()
-        {
-            return source.Textiles
-            .Select(CreateModel)
-            .ToList();
         }
 
         public void Insert(TextileBindingModel model)
         {
-            int maxId = source.Textiles.Count > 0 ? source.Textiles.Max(rec =>
-            rec.Id) : 0;
+            int maxId = source.Textiles.Count > 0 ? source.Textiles.Max(rec => rec.Id) : 0;
             var element = new Textile { Id = maxId + 1 };
             source.Textiles.Add(CreateModel(model, element));
         }
@@ -79,14 +62,26 @@ namespace GarmentFactoryFileImplement.Implements
             CreateModel(model, element);
         }
 
-        private static Textile CreateModel(TextileBindingModel model, Textile
-textile)
+        public void Delete(TextileBindingModel model)
+        {
+            Textile element = source.Textiles.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                source.Textiles.Remove(element);
+            }
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
+        }
+
+        private static Textile CreateModel(TextileBindingModel model, Textile textile)
         {
             textile.TextileName = model.TextileName;
             return textile;
         }
 
-        private TextileViewModel CreateModel(Textile textile)
+        private static TextileViewModel CreateModel(Textile textile)
         {
             return new TextileViewModel
             {

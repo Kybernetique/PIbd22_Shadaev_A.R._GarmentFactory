@@ -1,14 +1,12 @@
 using System;
 using System.Windows.Forms;
-using Unity;
-using Unity.Lifetime;
 using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryDatabaseImplement.Implements;
-using GarmentFactoryFileImplement;
-using GarmentFactoryBusinessLogic.OfficePackage;
-using GarmentFactoryBusinessLogic.OfficePackage.Implements;
+using Unity;
+using Unity.Lifetime;
+
 
 namespace GarmentFactoryView
 {
@@ -37,16 +35,16 @@ namespace GarmentFactoryView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IGarmentStorage, GarmentStorage>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
+            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ITextileLogic, TextileLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IGarmentLogic, GarmentLogic>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new
+               HierarchicalLifetimeManager());
             return currentContainer;
         }
 
@@ -60,7 +58,6 @@ namespace GarmentFactoryView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
-            FileDataListSingleton.GetInstance().SaveData();
         }
     }
 }

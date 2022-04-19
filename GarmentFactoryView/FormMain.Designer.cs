@@ -51,8 +51,7 @@ namespace GarmentFactoryView
             // 
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.справочникиToolStripMenuItem,
-            this.отчетыToolStripMenuItem});
+            this.справочникиToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
@@ -64,7 +63,8 @@ namespace GarmentFactoryView
             // 
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тканиToolStripMenuItem,
-            this.швейныеИзделияToolStripMenuItem});
+            this.швейныеИзделияToolStripMenuItem,
+            this.складыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -197,6 +197,7 @@ namespace GarmentFactoryView
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormMain";
             this.Text = "Швейная фабрика";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

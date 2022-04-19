@@ -14,5 +14,8 @@ namespace GarmentFactoryDatabaseImplement.Models
         
         [ForeignKey("TextileId")]
         public virtual List<GarmentTextile> GarmentTextiles{ get; set; }
+
+        [ForeignKey("TextileId")]
+        public virtual List<WarehouseTextile> WarehouseTextiles { get; set; }
     }
 }
