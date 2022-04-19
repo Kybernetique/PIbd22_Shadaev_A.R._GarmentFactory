@@ -9,7 +9,7 @@ namespace GarmentFactoryDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-H80LAH0\SQLEXPRESS;Initial Catalog=GarmentFactoryDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-8RJEJL3\SQLEXPRESS;Initial Catalog=GarmentFactoryDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }

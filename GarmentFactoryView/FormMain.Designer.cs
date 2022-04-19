@@ -30,6 +30,11 @@ namespace GarmentFactoryView
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.тканиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.швейныеИзделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.списокИзделийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиПоИзделиямToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,11 +42,6 @@ namespace GarmentFactoryView
             this.списокСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиПоСкладамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.информацияОЗаказахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.тканиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.швейныеИзделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокИзделийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиПоИзделиямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,13 +61,51 @@ namespace GarmentFactoryView
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
-            this.пополнитьСкладToolStripMenuItem,
-            this.отчетыToolStripMenuItem1});
+            this.отчетыToolStripMenuItem1,
+            this.пополнитьСкладToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(800, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
+            // 
+            // справочникиToolStripMenuItem
+            // 
+            this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.тканиToolStripMenuItem,
+            this.швейныеИзделияToolStripMenuItem,
+            this.складыToolStripMenuItem});
+            this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.справочникиToolStripMenuItem.Text = "Справочники";
+            // 
+            // тканиToolStripMenuItem
+            // 
+            this.тканиToolStripMenuItem.Name = "тканиToolStripMenuItem";
+            this.тканиToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.тканиToolStripMenuItem.Text = "Ткани";
+            this.тканиToolStripMenuItem.Click += new System.EventHandler(this.тканиToolStripMenuItem_Click);
+            // 
+            // швейныеИзделияToolStripMenuItem
+            // 
+            this.швейныеИзделияToolStripMenuItem.Name = "швейныеИзделияToolStripMenuItem";
+            this.швейныеИзделияToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.швейныеИзделияToolStripMenuItem.Text = "Швейные изделия";
+            this.швейныеИзделияToolStripMenuItem.Click += new System.EventHandler(this.швейныеИзделияToolStripMenuItem_Click);
+            // 
+            // складыToolStripMenuItem
+            // 
+            this.складыToolStripMenuItem.Name = "складыToolStripMenuItem";
+            this.складыToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.складыToolStripMenuItem.Text = "Склады";
+            this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // пополнитьСкладToolStripMenuItem
+            // 
+            this.пополнитьСкладToolStripMenuItem.Name = "пополнитьСкладToolStripMenuItem";
+            this.пополнитьСкладToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.пополнитьСкладToolStripMenuItem.Text = "Пополнить склад";
+            this.пополнитьСкладToolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
             // 
             // отчетыToolStripMenuItem1
             // 
@@ -123,44 +161,6 @@ namespace GarmentFactoryView
             this.информацияОЗаказахToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.информацияОЗаказахToolStripMenuItem.Text = "Информация о заказах";
             this.информацияОЗаказахToolStripMenuItem.Click += new System.EventHandler(this.информацияОЗаказахToolStripMenuItem_Click);
-            // 
-            // справочникиToolStripMenuItem
-            // 
-            this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.тканиToolStripMenuItem,
-            this.швейныеИзделияToolStripMenuItem,
-            this.складыToolStripMenuItem});
-            this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.справочникиToolStripMenuItem.Text = "Справочники";
-            // 
-            // тканиToolStripMenuItem
-            // 
-            this.тканиToolStripMenuItem.Name = "тканиToolStripMenuItem";
-            this.тканиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.тканиToolStripMenuItem.Text = "Ткани";
-            this.тканиToolStripMenuItem.Click += new System.EventHandler(this.тканиToolStripMenuItem_Click);
-            // 
-            // швейныеИзделияToolStripMenuItem
-            // 
-            this.швейныеИзделияToolStripMenuItem.Name = "швейныеИзделияToolStripMenuItem";
-            this.швейныеИзделияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.швейныеИзделияToolStripMenuItem.Text = "Швейные изделия";
-            this.швейныеИзделияToolStripMenuItem.Click += new System.EventHandler(this.швейныеИзделияToolStripMenuItem_Click);
-            // 
-            // складыToolStripMenuItem
-            // 
-            this.складыToolStripMenuItem.Name = "складыToolStripMenuItem";
-            this.складыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.складыToolStripMenuItem.Text = "Склады";
-            this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
-            // 
-            // пополнитьСкладToolStripMenuItem
-            // 
-            this.пополнитьСкладToolStripMenuItem.Name = "пополнитьСкладToolStripMenuItem";
-            this.пополнитьСкладToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
-            this.пополнитьСкладToolStripMenuItem.Text = "Пополнить склад";
-            this.пополнитьСкладToolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
             // 
             // отчетыToolStripMenuItem
             // 

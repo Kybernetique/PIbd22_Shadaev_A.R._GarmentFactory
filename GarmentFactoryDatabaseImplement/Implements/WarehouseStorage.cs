@@ -116,7 +116,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                     }
                     if (count != 0)
                     {
-                        throw new Exception("Недостаточно тканей для передания заказа в работу");
+                        throw new Exception("Недостаточно тканей для передачи заказа в работу");
                     }
                 }
                 transaction.Commit();
