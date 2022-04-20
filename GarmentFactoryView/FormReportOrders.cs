@@ -22,7 +22,7 @@ namespace GarmentFactoryView
                 Dock = DockStyle.Fill
             };
             reportViewer.LocalReport.LoadReportDefinition(new
-            FileStream("C://Users//Tony//Desktop//tp//lab5//PIbd22_Shadaev_A.R._GarmentFactory//GarmentFactoryView//ReportOrders.rdlc", FileMode.Open));
+            FileStream("C://Users//Tony//Desktop//New folder//New folder (2)//lab6//PIbd22_Shadaev_A.R._GarmentFactory//GarmentFactoryView//ReportOrders.rdlc", FileMode.Open));
             Controls.Clear();
             Controls.Add(reportViewer);
             panel.Dock = DockStyle.Top;

@@ -67,10 +67,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(225, 120);
+            this.buttonSave.Location = new System.Drawing.Point(303, 116);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(86, 31);
+            this.buttonSave.Size = new System.Drawing.Size(97, 31);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(122, 120);
+            this.buttonCancel.Location = new System.Drawing.Point(130, 116);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(86, 31);
@@ -89,33 +89,33 @@
             // 
             // textBoxRestTime
             // 
-            this.textBoxRestTime.Location = new System.Drawing.Point(122, 81);
+            this.textBoxRestTime.Location = new System.Drawing.Point(130, 81);
             this.textBoxRestTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxRestTime.Name = "textBoxRestTime";
-            this.textBoxRestTime.Size = new System.Drawing.Size(188, 27);
+            this.textBoxRestTime.Size = new System.Drawing.Size(270, 27);
             this.textBoxRestTime.TabIndex = 5;
             // 
             // textBoxWorkingTime
             // 
-            this.textBoxWorkingTime.Location = new System.Drawing.Point(122, 44);
+            this.textBoxWorkingTime.Location = new System.Drawing.Point(130, 45);
             this.textBoxWorkingTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxWorkingTime.Name = "textBoxWorkingTime";
-            this.textBoxWorkingTime.Size = new System.Drawing.Size(188, 27);
+            this.textBoxWorkingTime.Size = new System.Drawing.Size(270, 27);
             this.textBoxWorkingTime.TabIndex = 6;
             // 
             // textBoxFIO
             // 
-            this.textBoxFIO.Location = new System.Drawing.Point(122, 8);
+            this.textBoxFIO.Location = new System.Drawing.Point(130, 5);
             this.textBoxFIO.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxFIO.Name = "textBoxFIO";
-            this.textBoxFIO.Size = new System.Drawing.Size(188, 27);
+            this.textBoxFIO.Size = new System.Drawing.Size(270, 27);
             this.textBoxFIO.TabIndex = 7;
             // 
             // FormImplementer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 157);
+            this.ClientSize = new System.Drawing.Size(420, 156);
             this.Controls.Add(this.textBoxFIO);
             this.Controls.Add(this.textBoxWorkingTime);
             this.Controls.Add(this.textBoxRestTime);

@@ -20,9 +20,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         {
             rnd = new Random(1000);
         }
-        /// <summary>
-        /// Запуск работ
-        /// </summary>
+
+        // Запуск работ
         public void DoWork(IImplementerLogic implementerLogic, IOrderLogic
         orderLogic)
         {
@@ -37,10 +36,8 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 orders));
             }
         }
-        /// <summary>/// Иммитация работы исполнителя
-        /// </summary>
-        /// <param name="implementer"></param>
-        /// <param name="orders"></param>
+
+        // Иммитация работы исполнителя
         private async Task WorkerWorkAsync(ImplementerViewModel implementer,
         ConcurrentBag<OrderViewModel> orders)
         {
@@ -58,8 +55,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 order.Count);
                 _orderLogic.FinishOrder(new ChangeStatusBindingModel
                 {
-                    OrderId
-                = order.Id
+                    OrderId = order.Id
                 });
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
