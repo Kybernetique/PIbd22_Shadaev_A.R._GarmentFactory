@@ -88,20 +88,20 @@ namespace GarmentFactoryBusinessLogic.OfficePackage
                     StyleInfo = ExcelStyleInfoType.Text
                 });
                 rowIndex++;
-                foreach (var condition in wc.Textiles)
+                foreach (var textile in wc.Textiles)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         ColumnName = "B",
                         RowIndex = rowIndex,
-                        Text = condition.Item1,
+                        Text = textile.Item1,
                         StyleInfo = ExcelStyleInfoType.TextWithBorder
                     });
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         ColumnName = "C",
                         RowIndex = rowIndex,
-                        Text = condition.Item2.ToString(),
+                        Text = textile.Item2.ToString(),
                         StyleInfo = ExcelStyleInfoType.TextWithBorder
                     });
                     rowIndex++;
