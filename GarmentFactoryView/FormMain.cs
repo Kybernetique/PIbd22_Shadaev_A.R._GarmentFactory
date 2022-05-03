@@ -149,5 +149,11 @@ namespace GarmentFactoryView
             _workProcces.DoWork(_implementerLogic, _orderLogic);
             LoadData();
         }
+
+        private void сообщенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormMessages>();
+            form.ShowDialog();
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             using (var context = new GarmentFactoryDatabase())
             {
                 var client = context.Clients.Include(x => x.Orders)
-                .FirstOrDefault(rec => rec.Login == model.Login || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.Login == model.Email || rec.Id == model.Id);
                 return client != null ? CreateModel(client) : null;
             }
         }
@@ -51,7 +51,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             using (var context = new GarmentFactoryDatabase())
             {
                 return context.Clients.Include(x => x.Orders)
-                .Where(rec => rec.Login == model.Login && rec.Password == model.Password)
+                .Where(rec => rec.Login == model.Email && rec.Password == model.Password)
                 .Select(CreateModel)
                 .ToList();
             }
@@ -91,7 +91,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
         private Client CreateModel(ClientBindingModel model, Client client)
         {
             client.ClientFIO = model.ClientFIO;
-            client.Login = model.Login;
+            client.Login = model.Email;
             client.Password = model.Password;
             return client;
         }
@@ -101,7 +101,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             {
                 Id = model.Id,
                 ClientFIO = model.ClientFIO,
-                Login = model.Login,
+                Email = model.Login,
                 Password = model.Password
             };
         }

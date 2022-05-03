@@ -53,7 +53,7 @@ namespace GarmentFactoryListImplement.Implements
             List<ClientViewModel> result = new List<ClientViewModel>();
             foreach (var client in source.Clients)
             {
-                if (client.Login.Contains(model.Login))
+                if (client.Login.Contains(model.Email))
                 {
                     result.Add(CreateModel(client));
                 }
@@ -103,7 +103,7 @@ namespace GarmentFactoryListImplement.Implements
         private Client CreateModel(ClientBindingModel model, Client client)
         {
             client.ClientFIO = model.ClientFIO;
-            client.Login = model.Login;
+            client.Login = model.Email;
             client.Password = model.Password;
             return client;
         }
@@ -114,7 +114,7 @@ namespace GarmentFactoryListImplement.Implements
             {
                 Id = client.Id,
                 ClientFIO = client.ClientFIO,
-                Login = client.Login,
+                Email = client.Login,
                 Password = client.Password
             };
         }

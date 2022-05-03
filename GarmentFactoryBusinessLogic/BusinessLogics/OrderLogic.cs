@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GarmentFactoryBusinessLogic.MailWorker;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.Enums;
@@ -12,9 +13,15 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
     {
         private readonly IOrderStorage _orderStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly AbstractMailWorker _mailWorker;
+
+        private readonly IClientStorage _clientStorage;
+
+        public OrderLogic(IOrderStorage orderStorage, IClientStorage clientStorage, AbstractMailWorker mailWorker)
         {
             _orderStorage = orderStorage;
+            _mailWorker = mailWorker;
+            _clientStorage = clientStorage;
         }
 
         public void CreateOrder(CreateOrderBindingModel model)
@@ -28,6 +35,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
             }); ;
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = model.ClientId })?.Email,
+                Subject = "Заказ создан",
+                Text = $"Дата: {DateTime.Now}, сумма: {model.Sum}"
+            });
         }
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
@@ -53,6 +66,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выдан
             });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ выдан",
+                Text = $"Заказ №{order.Id} выдан, Дата: {DateTime.Now}"
+            });
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -77,6 +96,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Готов
+            });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ готов!",
+                Text = $"Заказ №{order.Id} готов, Дата: {DateTime.Now}"
             });
         }
 
@@ -115,6 +140,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выполняется
+            });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ выполняется",
+                Text = $"Заказ №{order.Id} выполняется, Дата: {DateTime.Now}"
             });
         }
     }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GarmentFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(GarmentFactoryDatabase))]
-    [Migration("20220420063524_InitialCreate")]
+    [Migration("20220503185542_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -111,6 +111,33 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -186,6 +213,15 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                     b.Navigation("Garment");
 
                     b.Navigation("Textile");
+                });
+
+            modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("GarmentFactoryDatabaseImplement.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Order", b =>

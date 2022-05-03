@@ -48,11 +48,11 @@ namespace GarmentFactoryClientApp.Controllers
                 {
                     Id = Program.Client.Id,
                     ClientFIO = fio,
-                    Login = login,
+                    Email = login,
                     Password = password
                 });
                 Program.Client.ClientFIO = fio;
-                Program.Client.Login = login;
+                Program.Client.Email = login;
                 Program.Client.Password = password;
                 Response.Redirect("Index");
                 return;
@@ -106,7 +106,7 @@ namespace GarmentFactoryClientApp.Controllers
                 APIClient.PostRequest("api/client/register", new ClientBindingModel
                 {
                     ClientFIO = fio,
-                    Login = login,
+                    Email = login,
                     Password = password
                 });
                 Response.Redirect("Enter");
@@ -145,6 +145,17 @@ namespace GarmentFactoryClientApp.Controllers
         {
             GarmentViewModel garm = APIClient.GetRequest<GarmentViewModel>($"api/main/getgarment?garmentId={garment}");
             return count * garm.Price;
+        }
+
+        [HttpGet]
+        public IActionResult Messages()
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View(APIClient.GetRequest<List<MessageInfoViewModel>>
+                ($"api/main/getmessages?clientId={Program.Client.Id}"));
         }
     }
 }

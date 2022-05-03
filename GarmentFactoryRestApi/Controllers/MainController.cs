@@ -14,12 +14,16 @@ namespace GarmentFactoryRestApi.Controllers
         private readonly IOrderLogic _order;
         
         private readonly IGarmentLogic _garment;
-        public MainController(IOrderLogic order, IGarmentLogic garment)
+
+        private readonly IMessageInfoLogic _messageInfo;
+
+        public MainController(IOrderLogic order, IGarmentLogic garment, IMessageInfoLogic messageInfo)
         {
             _order = order;
             _garment = garment;
+            _messageInfo = messageInfo;
         }
-        
+
         [HttpGet]
         public List<GarmentViewModel> GetGarmentList() => _garment.Read(null)?.ToList();
         
@@ -32,7 +36,12 @@ namespace GarmentFactoryRestApi.Controllers
         public List<OrderViewModel> GetOrders(int clientId) => _order.Read(new
         OrderBindingModel
         { ClientId = clientId });
-        
+
+        [HttpGet]
+        public List<MessageInfoViewModel> GetMessages(int clientId) => _messageInfo.Read(new
+        MessageInfoBindingModel
+        { ClientId = clientId });
+
         [HttpPost]
         public void CreateOrder(CreateOrderBindingModel model) =>
         _order.CreateOrder(model);

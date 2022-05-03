@@ -1,4 +1,6 @@
 using GarmentFactoryBusinessLogic.BusinessLogics;
+using GarmentFactoryBusinessLogic.MailWorker;
+using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryDatabaseImplement.Implements;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace GarmentFactoryRestApi
 {
@@ -26,9 +29,15 @@ namespace GarmentFactoryRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IGarmentStorage, GarmentStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IGarmentLogic, GarmentLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +68,22 @@ namespace GarmentFactoryRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin =
+            Configuration?.GetSection("MailLogin")?.ToString(),
+                MailPassword =
+            Configuration?.GetSection("MailPassword")?.ToString(),
+                SmtpClientHost =
+            Configuration?.GetSection("SmtpClientHost")?.ToString(),
+                SmtpClientPort =
+            Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.ToString()),
+                PopHost = Configuration?.GetSection("PopHost")?.ToString(),
+                PopPort =
+            Convert.ToInt32(Configuration?.GetSection("PopPort")?.ToString())
             });
         }
     }

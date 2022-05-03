@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarmentFactoryRestApi", "Ga
 		{48CCD075-BAC7-4E1D-B6E9-3607DAC4DF03} = {48CCD075-BAC7-4E1D-B6E9-3607DAC4DF03}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarmentFactoryClientApp", "GarmentFactoryClientApp\GarmentFactoryClientApp.csproj", "{DD06360B-75BF-47D7-B9EC-7424DA808688}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarmentFactoryClientApp", "GarmentFactoryClientApp\GarmentFactoryClientApp.csproj", "{DD06360B-75BF-47D7-B9EC-7424DA808688}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
