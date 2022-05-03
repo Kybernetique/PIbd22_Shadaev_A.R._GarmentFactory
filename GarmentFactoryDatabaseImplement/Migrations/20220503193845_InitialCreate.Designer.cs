@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GarmentFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(GarmentFactoryDatabase))]
-    [Migration("20220503185542_InitialCreate")]
+    [Migration("20220503193845_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,7 +218,7 @@ namespace GarmentFactoryDatabaseImplement.Migrations
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.MessageInfo", b =>
                 {
                     b.HasOne("GarmentFactoryDatabaseImplement.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("MessageInfo")
                         .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
@@ -251,6 +251,8 @@ namespace GarmentFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("MessageInfo");
+
                     b.Navigation("Orders");
                 });
 

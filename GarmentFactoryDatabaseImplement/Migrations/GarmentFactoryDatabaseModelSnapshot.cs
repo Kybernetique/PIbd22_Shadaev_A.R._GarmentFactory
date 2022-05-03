@@ -216,7 +216,7 @@ namespace GarmentFactoryDatabaseImplement.Migrations
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.MessageInfo", b =>
                 {
                     b.HasOne("GarmentFactoryDatabaseImplement.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("MessageInfo")
                         .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
@@ -249,6 +249,8 @@ namespace GarmentFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("GarmentFactoryDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("MessageInfo");
+
                     b.Navigation("Orders");
                 });
 

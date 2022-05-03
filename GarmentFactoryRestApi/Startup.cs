@@ -73,17 +73,12 @@ namespace GarmentFactoryRestApi
             var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
             mailSender.MailConfig(new MailConfigBindingModel
             {
-                MailLogin =
-            Configuration?.GetSection("MailLogin")?.ToString(),
-                MailPassword =
-            Configuration?.GetSection("MailPassword")?.ToString(),
-                SmtpClientHost =
-            Configuration?.GetSection("SmtpClientHost")?.ToString(),
-                SmtpClientPort =
-            Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.ToString()),
-                PopHost = Configuration?.GetSection("PopHost")?.ToString(),
-                PopPort =
-            Convert.ToInt32(Configuration?.GetSection("PopPort")?.ToString())
+                MailLogin = Configuration?["MailLogin"],
+                MailPassword = Configuration?["MailPassword"],
+                SmtpClientHost = Configuration?["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(Configuration?["SmtpClientPort"]),
+                PopHost = Configuration?["PopHost"],
+                PopPort = Convert.ToInt32(Configuration?["PopPort"])
             });
         }
     }
