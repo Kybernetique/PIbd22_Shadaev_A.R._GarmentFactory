@@ -99,7 +99,7 @@ namespace GarmentFactoryView
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormTextiles";
-            this.Text = "FormTextiles";
+            this.Text = "Ткани";
             this.Load += new System.EventHandler(this.FormTextiles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
