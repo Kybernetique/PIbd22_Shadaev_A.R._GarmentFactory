@@ -60,5 +60,4 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             return _clientStorage.GetFilteredList(model);
         }
     }
-
 }

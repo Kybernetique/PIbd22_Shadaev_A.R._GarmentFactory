@@ -198,5 +198,83 @@ namespace GarmentFactoryView
             var form = Program.Container.Resolve<FormReportWarehouseTextiles>();
             form.ShowDialog();
         }
+
+        private void пополнитьСкладToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouseTextile>();
+            form.ShowDialog();
+        }
+
+        private void складыToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void списокИзделийToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _reportLogic.SaveGarmentsToWordFile(new ReportBindingModel
+                {
+                    FileName = dialog.FileName
+                });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+        }
+
+        private void тканиПоИзделиямToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportGarmentTextiles>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void информацияОЗаказахToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportTotalOrders>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void тканиПоСкладамToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportWarehouseTextiles>();
+            form.ShowDialog();
+        }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
+
+        private void тканиПоСкладамToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportWarehouseTextiles>();
+            form.ShowDialog();
+        }
     }
 }

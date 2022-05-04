@@ -7,6 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -14,6 +16,8 @@
     <ProjectReference Include="..\GarmentFactoryBusinessLogic\GarmentFactoryBusinessLogic.csproj" />
     <ProjectReference Include="..\GarmentFactoryContracts\GarmentFactoryContracts.csproj" />
     <ProjectReference Include="..\GarmentFactoryDatabaseImplement\GarmentFactoryDatabaseImplement.csproj" />
+    <ProjectReference Include="..\GarmentFactoryFileImplement\GarmentFactoryFileImplement.csproj" />
+    <ProjectReference Include="..\GarmentFactoryListImplement\GarmentFactoryListImplement.csproj" />
   </ItemGroup>
 
 </Project>

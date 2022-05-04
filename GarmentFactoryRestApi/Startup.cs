@@ -26,17 +26,17 @@ namespace GarmentFactoryRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IGarmentStorage, GarmentStorage>();
+            services.AddTransient<ITextileStorage, TextileStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IGarmentLogic, GarmentLogic>();
-            services.AddControllers();
+            services.AddTransient<IWarehouseLogic, WarehouseLogic>();
+            services.AddTransient<ITextileLogic, TextileLogic>();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "GarmentFactoryRestApi",
-                    Version = "v1"
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GarmentFactoryRestApi", Version = "v1" });
             });
         }
 

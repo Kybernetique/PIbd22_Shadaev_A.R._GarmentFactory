@@ -21,5 +21,10 @@ namespace GarmentFactoryDatabaseImplement
         public virtual DbSet<GarmentTextile> GarmentTextiles { set; get; }
 
         public virtual DbSet<Order> Orders { set; get; }
+
+        public virtual DbSet<Client> Clients { set; get; }
+
+        public virtual DbSet<Warehouse> Warehouses { set; get; }
+        public virtual DbSet<WarehouseTextile> WarehouseTextiles { set; get; }
     }
 }
