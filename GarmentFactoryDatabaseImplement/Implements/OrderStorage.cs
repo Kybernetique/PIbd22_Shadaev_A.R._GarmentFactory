@@ -14,7 +14,10 @@ namespace GarmentFactoryDatabaseImplement.Implements
         public List<OrderViewModel> GetFullList()
         {
             GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            return context.Orders.Include(rec => rec.Garment)
+            return context.Orders
+                .Include(rec => rec.Garment)
+                .Include(rec => rec.Client)
+                .Include(rec => rec.Implementer)
                 .Select(CreateModel)
                 .ToList();
         }
@@ -26,12 +29,21 @@ namespace GarmentFactoryDatabaseImplement.Implements
                     return null;
                 }
                 GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-                return context.Orders.Include(rec => rec.Garment)
-                    .Where(rec => rec.GarmentId == model.GarmentId || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date
-                    && rec.DateCreate.Date <= model.DateTo.Value.Date) || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-                    .Select(CreateModel)
-                    .ToList();
+                return context.Orders
+               .Include(rec => rec.Garment)
+               .Include(rec => rec.Client)
+               .Include(rec => rec.Implementer)
+               .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                    rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
+                    model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                    (model.SearchStatus.HasValue && model.SearchStatus.Value ==
+                    rec.Status) ||
+                    (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
+               .Select(CreateModel)
+               .ToList();
             }
         }
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -41,16 +53,20 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 return null;
             }
             GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Order order = context.Orders.Include(rec => rec.Garment)
-                 .FirstOrDefault(rec => rec.Id == model.Id);
+            Order order = context.Orders
+            .Include(rec => rec.Garment)
+            .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
+            .FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ?
             new OrderViewModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
                 GarmentName = order.Garment.GarmentName,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                 ClientId = order.ClientId,
-                ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == order.ClientId)?.ClientFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
@@ -65,6 +81,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             Order order = new Order
             {
                 GarmentId = model.GarmentId,
+                ImplementerId = model.ImplementerId,
                 ClientId = (int)model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -86,7 +103,8 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 throw new Exception("Элемент не найден");
             }
             element.GarmentId = model.GarmentId;
-            element.ClientId = (int)model.ClientId; 
+            element.ClientId = (int)model.ClientId;
+            element.ImplementerId = model.ImplementerId;
             element.Count = model.Count;
             element.Sum = model.Sum;
             element.Status = model.Status;
@@ -144,7 +162,8 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 GarmentId = order.GarmentId,
                 GarmentName = order.Garment.GarmentName,
                 ClientId = order.ClientId,
-                ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == order.ClientId)?.ClientFIO,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
