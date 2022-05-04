@@ -12,34 +12,16 @@ namespace GarmentFactoryFileImplement.Implements
     {
         private readonly FileDataListSingleton source;
 
-        public void Delete(GarmentBindingModel model)
-        {
-            Garment element = source.Garments.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element != null)
-            {
-                source.Garments.Remove(element);
-            }
-            else
-            {
-                throw new Exception("Элемент не найден");
-            }
-        }
-
         public GarmentStorage()
         {
             source = FileDataListSingleton.GetInstance();
         }
 
-        public GarmentViewModel GetElement(GarmentBindingModel model)
+        public List<GarmentViewModel> GetFullList()
         {
-            if (model == null)
-            {
-                return null;
-            }
-            var garment = source.Garments
-            .FirstOrDefault(rec => rec.GarmentName == model.GarmentName || rec.Id
-            == model.Id);
-            return garment != null ? CreateModel(garment) : null;
+            return source.Garments
+                .Select(CreateModel)
+                .ToList();
         }
 
         public List<GarmentViewModel> GetFilteredList(GarmentBindingModel model)
@@ -49,22 +31,25 @@ namespace GarmentFactoryFileImplement.Implements
                 return null;
             }
             return source.Garments
-            .Where(rec => rec.GarmentName.Contains(model.GarmentName))
-            .Select(CreateModel)
-            .ToList();
+                .Where(rec => rec.GarmentName.Contains(model.GarmentName))
+                .Select(CreateModel)
+                .ToList();
         }
 
-        public List<GarmentViewModel> GetFullList()
+        public GarmentViewModel GetElement(GarmentBindingModel model)
         {
-            return source.Garments
-            .Select(CreateModel)
-            .ToList();
+            if (model == null)
+            {
+                return null;
+            }
+            var garment = source.Garments
+                .FirstOrDefault(rec => rec.GarmentName == model.GarmentName || rec.Id == model.Id);
+            return garment != null ? CreateModel(garment) : null;
         }
 
         public void Insert(GarmentBindingModel model)
         {
-            int maxId = source.Garments.Count > 0 ? source.Garments.Max(rec => rec.Id)
-            : 0;
+            int maxId = source.Garments.Count > 0 ? source.Textiles.Max(rec => rec.Id) : 0;
             var element = new Garment
             {
                 Id = maxId + 1,
@@ -75,7 +60,8 @@ namespace GarmentFactoryFileImplement.Implements
 
         public void Update(GarmentBindingModel model)
         {
-            var element = source.Garments.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = source.Garments
+                .FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
                 throw new Exception("Элемент не найден");
@@ -83,11 +69,25 @@ namespace GarmentFactoryFileImplement.Implements
             CreateModel(model, element);
         }
 
-        private static Garment CreateModel(GarmentBindingModel model, Garment garment)
+        public void Delete(GarmentBindingModel model)
+        {
+            Garment element = source.Garments
+                .FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                source.Garments.Remove(element);
+            }
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
+        }
+
+        private static Garment CreateModel(GarmentBindingModel model, Garment
+        garment)
         {
             garment.GarmentName = model.GarmentName;
             garment.Price = model.Price;
-            // удаляем убранные
             foreach (var key in garment.GarmentTextiles.Keys.ToList())
             {
                 if (!model.GarmentTextiles.ContainsKey(key))
@@ -95,7 +95,6 @@ namespace GarmentFactoryFileImplement.Implements
                     garment.GarmentTextiles.Remove(key);
                 }
             }
-            // обновляем существуюущие и добавляем новые
             foreach (var textile in model.GarmentTextiles)
             {
                 if (garment.GarmentTextiles.ContainsKey(textile.Key))
@@ -115,15 +114,14 @@ namespace GarmentFactoryFileImplement.Implements
         private GarmentViewModel CreateModel(Garment garment)
         {
             return new GarmentViewModel
-
             {
                 Id = garment.Id,
                 GarmentName = garment.GarmentName,
                 Price = garment.Price,
                 GarmentTextiles = garment.GarmentTextiles
-            .ToDictionary(recPC => recPC.Key, recPC =>
+            .ToDictionary(recGT => recGT.Key, recGT =>
             (source.Textiles.FirstOrDefault(recC => recC.Id ==
-            recPC.Key)?.TextileName, recPC.Value))
+            recGT.Key)?.TextileName, recGT.Value))
             };
         }
     }

@@ -1,14 +1,17 @@
+using GarmentFactoryDatabaseImplement.Implements;
+using GarmentFactoryBusinessLogic.BusinessLogics;
+using GarmentFactoryBusinessLogic.OfficePackage;
+using GarmentFactoryBusinessLogic.OfficePackage.Implements;
+using GarmentFactoryContracts.BusinessLogicsContracts;
+using GarmentFactoryContracts.StoragesContracts;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 using Unity.Lifetime;
-using GarmentFactoryBusinessLogic.BusinessLogics;
-using GarmentFactoryContracts.BusinessLogicsContracts;
-using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryDatabaseImplement.Implements;
-using GarmentFactoryFileImplement;
-using GarmentFactoryBusinessLogic.OfficePackage;
-using GarmentFactoryBusinessLogic.OfficePackage.Implements;
+
 
 namespace GarmentFactoryView
 {
@@ -64,7 +67,6 @@ namespace GarmentFactoryView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
-            FileDataListSingleton.GetInstance().SaveData();
         }
     }
 }

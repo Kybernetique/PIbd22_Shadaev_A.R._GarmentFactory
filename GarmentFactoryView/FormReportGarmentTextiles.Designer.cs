@@ -45,11 +45,12 @@ namespace GarmentFactoryView
             this.Garment,
             this.Textile,
             this.Count});
-            this.dataGridView.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView.Location = new System.Drawing.Point(8, 7);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 33;
-            this.dataGridView.Size = new System.Drawing.Size(572, 225);
+            this.dataGridView.Size = new System.Drawing.Size(400, 135);
             this.dataGridView.TabIndex = 0;
             // 
             // Garment
@@ -75,9 +76,10 @@ namespace GarmentFactoryView
             // 
             // buttonSaveToExcel
             // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(371, 243);
+            this.buttonSaveToExcel.Location = new System.Drawing.Point(260, 146);
+            this.buttonSaveToExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(213, 34);
+            this.buttonSaveToExcel.Size = new System.Drawing.Size(149, 29);
             this.buttonSaveToExcel.TabIndex = 1;
             this.buttonSaveToExcel.Text = "Сохранить в Excel";
             this.buttonSaveToExcel.UseVisualStyleBackColor = true;
@@ -85,11 +87,12 @@ namespace GarmentFactoryView
             // 
             // FormReportGarmentTextiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(560, 270);
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormReportGarmentTextiles";
             this.Text = "Ткани по изделиям";
             this.Load += new System.EventHandler(this.FormReportGarmentTextiles_Load);

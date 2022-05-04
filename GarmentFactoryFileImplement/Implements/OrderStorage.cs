@@ -11,7 +11,6 @@ namespace GarmentFactoryFileImplement.Implements
     public class OrderStorage : IOrderStorage
     {
         private readonly FileDataListSingleton source;
-
         public OrderStorage()
         {
             source = FileDataListSingleton.GetInstance();
@@ -27,7 +26,6 @@ namespace GarmentFactoryFileImplement.Implements
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.GarmentId == model.GarmentId);
             return order != null ? CreateModel(order) : null;
         }
-
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null)
@@ -41,21 +39,18 @@ namespace GarmentFactoryFileImplement.Implements
                 .Select(CreateModel)
                 .ToList();
         }
-
         public List<OrderViewModel> GetFullList()
         {
             return source.Orders
                 .Select(CreateModel)
                 .ToList();
         }
-
         public void Insert(OrderBindingModel model)
         {
             int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.Id) : 0;
             Order element = new Order { Id = maxId + 1 };
             source.Orders.Add(CreateModel(model, element));
         }
-
         public void Update(OrderBindingModel model)
         {
             var element = source.Orders.FirstOrDefault(rec => rec.Id == model.Id);
@@ -91,7 +86,6 @@ namespace GarmentFactoryFileImplement.Implements
             order.DateImplement = model.DateImplement;
             return order;
         }
-
         private OrderViewModel CreateModel(Order order)
         {
             return new OrderViewModel
@@ -108,6 +102,5 @@ namespace GarmentFactoryFileImplement.Implements
                 DateImplement = order.DateImplement,
             };
         }
-
     }
 }

@@ -21,11 +21,14 @@ namespace GarmentFactoryListImplement
 
         public List<Client> Clients { get; set; }
 
+        public List<Warehouse> Warehouses { get; set; }
+
         private DataListSingleton()
         {
             Textiles = new List<Textile>();
             Orders = new List<Order>();
             Garments = new List<Garment>();
+            Warehouses = new List<Warehouse>();
         }
 
         public static DataListSingleton GetInstance()

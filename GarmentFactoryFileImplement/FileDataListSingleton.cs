@@ -11,31 +11,29 @@ namespace GarmentFactoryFileImplement
     public class FileDataListSingleton
     {
         private static FileDataListSingleton instance;
-        private readonly string TextileFileName = "Textile.xml";
-        private readonly string OrderFileName = "Order.xml";
-        private readonly string GarmentFileName = "Garment.xml";
-        private readonly string ClientFileName = "Client.xml";
+
+        private readonly string TextileFileName = "C:\\Users\\Tony\\Desktop\\Textile.xml";
+
+        private readonly string OrderFileName = "C:\\Users\\Tony\\Desktop\\Order.xml";
+
+        private readonly string GarmentFileName = "C:\\Users\\Tony\\Desktop\\Garment.xml";
+
+        private readonly string WarehouseFileName = "C:\\Users\\Tony\\Desktop\\Warehouse.xml";
+
         public List<Textile> Textiles { get; set; }
+
         public List<Order> Orders { get; set; }
+
         public List<Garment> Garments { get; set; }
 
-        public List<Client> Clients { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
 
         private FileDataListSingleton()
         {
             Textiles = LoadTextiles();
             Orders = LoadOrders();
             Garments = LoadGarments();
-            Clients = LoadClients();
-        }
-
-        public static FileDataListSingleton GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new FileDataListSingleton();
-            }
-            return instance;
+            Warehouses = LoadWarehouses();
         }
 
         public void SaveData()
@@ -43,7 +41,15 @@ namespace GarmentFactoryFileImplement
             SaveTextiles();
             SaveOrders();
             SaveGarments();
-            SaveClients();
+            SaveWarehouses();
+        }
+        public static FileDataListSingleton GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new FileDataListSingleton();
+            }
+            return instance;
         }
 
         private List<Textile> LoadTextiles()
@@ -64,7 +70,6 @@ namespace GarmentFactoryFileImplement
             }
             return list;
         }
-
         private List<Order> LoadOrders()
         {
             var list = new List<Order>();
@@ -89,7 +94,6 @@ namespace GarmentFactoryFileImplement
             }
             return list;
         }
-
         private List<Garment> LoadGarments()
         {
             var list = new List<Garment>();
@@ -99,46 +103,51 @@ namespace GarmentFactoryFileImplement
                 var xElements = xDocument.Root.Elements("Garment").ToList();
                 foreach (var elem in xElements)
                 {
-                    var garmTex = new Dictionary<int, int>();
+                    var garmentTextiles = new Dictionary<int, int>();
                     foreach (var textile in
-                    elem.Element("GarmentTextiles").Elements("GarmentTextile").ToList())
+                   elem.Element("GarmentTextiles").Elements("GarmentTextile").ToList())
                     {
-                        garmTex.Add(Convert.ToInt32(textile.Element("Key").Value),
-                        Convert.ToInt32(textile.Element("Value").Value));
+                        garmentTextiles.Add(Convert.ToInt32(textile.Element("Key").Value),
+                       Convert.ToInt32(textile.Element("Value").Value));
                     }
                     list.Add(new Garment
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         GarmentName = elem.Element("GarmentName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
-                        GarmentTextiles = garmTex
+                        GarmentTextiles = garmentTextiles
                     });
                 }
             }
             return list;
         }
-
-        private List<Client> LoadClients()
+        private List<Warehouse> LoadWarehouses()
         {
-            var list = new List<Client>();
-            if (File.Exists(ClientFileName))
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
             {
-                XDocument xDocument = XDocument.Load(ClientFileName);
-                var xElements = xDocument.Root.Elements("Client").ToList();
+                var xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
                 foreach (var elem in xElements)
                 {
-                    list.Add(new Client
+                    var garmentTextile = new Dictionary<int, int>();
+                    foreach (var textile in elem.Element("WarehouseTextiles").Elements("WarehouseTextile").ToList())
+                    {
+                        garmentTextile.Add(Convert.ToInt32(textile.Element("Key").Value),
+                       Convert.ToInt32(textile.Element("Value").Value));
+                    }
+                    list.Add(new Warehouse
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ClientFIO = elem.Element("ClientFIO").Value,
-                        Login = elem.Element("Login").Value,
-                        Password = elem.Element("Password").Value,
+                        WarehouseName = elem.Element("WarehouseName").Value,
+                        ResponsibleFullName = elem.Element("ResponsibleFullName").Value,
+                        CreateDate = Convert.ToDateTime(elem.Element("CreateDate").Value),
+                        WarehouseTextiles = garmentTextile
                     });
                 }
             }
             return list;
         }
-
         private void SaveTextiles()
         {
             if (Textiles != null)
@@ -154,7 +163,6 @@ namespace GarmentFactoryFileImplement
                 xDocument.Save(TextileFileName);
             }
         }
-
         private void SaveOrders()
         {
             if (Orders != null)
@@ -175,7 +183,6 @@ namespace GarmentFactoryFileImplement
                 xDocument.Save(OrderFileName);
             }
         }
-
         private void SaveGarments()
         {
             if (Garments != null)
@@ -191,31 +198,38 @@ namespace GarmentFactoryFileImplement
                         new XElement("Value", textile.Value)));
                     }
                     xElement.Add(new XElement("Garment",
-                    new XAttribute("Id", garment.Id),
-                    new XElement("GarmentName", garment.GarmentName),
-                    new XElement("Price", garment.Price),
-                    texElement));
+                     new XAttribute("Id", garment.Id),
+                     new XElement("GarmentName", garment.GarmentName),
+                     new XElement("Price", garment.Price),
+                     texElement));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(GarmentFileName);
             }
         }
-
-        private void SaveClients()
+        private void SaveWarehouses()
         {
-            if (Clients != null)
+            if (Warehouses != null)
             {
-                var xElement = new XElement("Clients");
-                foreach (var client in Clients)
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
                 {
-                    xElement.Add(new XElement("Client",
-                    new XAttribute("Id", client.Id),
-                    new XElement("ClientFIO", client.ClientFIO),
-                    new XElement("Login", client.Login),
-                    new XElement("Password", client.Password)));
+                    var warehouseElement = new XElement("WarehouseTextiles");
+                    foreach (var textile in warehouse.WarehouseTextiles)
+                    {
+                        warehouseElement.Add(new XElement("WarehouseTextile",
+                            new XElement("Key", textile.Key),
+                            new XElement("Value", textile.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                        new XAttribute("Id", warehouse.Id),
+                        new XElement("WarehouseName", warehouse.WarehouseName),
+                        new XElement("CreateDate", warehouse.CreateDate),
+                        new XElement("ResponsibleFullName", warehouse.ResponsibleFullName),
+                        warehouseElement));
                 }
-                XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(ClientFileName);
+                var xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

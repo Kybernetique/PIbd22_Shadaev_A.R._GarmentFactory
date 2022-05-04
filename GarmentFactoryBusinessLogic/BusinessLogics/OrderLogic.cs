@@ -12,9 +12,15 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
     {
         private readonly IOrderStorage _orderStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+
+        private readonly IGarmentStorage _garmentStorage;
+
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IGarmentStorage garmentStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
+            _garmentStorage = garmentStorage;
         }
 
         public void CreateOrder(CreateOrderBindingModel model)
@@ -99,6 +105,10 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             if (order.Status != OrderStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
+            }
+            if (!_warehouseStorage.TakeTextileFromWarehouse(_garmentStorage.GetElement(new GarmentBindingModel { Id = order.GarmentId }).GarmentTextiles, order.Count))
+            {
+                throw new Exception("Недостаточно тканей для принятия в работу заказа");
             }
             _orderStorage.Update(new OrderBindingModel
             {

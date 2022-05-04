@@ -33,6 +33,15 @@ namespace GarmentFactoryView
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.швейныеИзделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетыToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокИзделийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.тканиПоИзделиямToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокЗаказовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.тканиПоСкладамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.информацияОЗаказахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокИзделийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тканиПоИзделиямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,11 +62,11 @@ namespace GarmentFactoryView
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
-            this.отчетыToolStripMenuItem});
+            this.отчетыToolStripMenuItem1,
+            this.пополнитьСкладToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(1143, 35);
+            this.menuStrip.Size = new System.Drawing.Size(800, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -68,7 +77,7 @@ namespace GarmentFactoryView
             this.швейныеИзделияToolStripMenuItem,
             this.клиентыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
             // 
             // тканиToolStripMenuItem
@@ -85,6 +94,75 @@ namespace GarmentFactoryView
             this.швейныеИзделияToolStripMenuItem.Text = "Швейные изделия";
             this.швейныеИзделияToolStripMenuItem.Click += new System.EventHandler(this.швейныеИзделияToolStripMenuItem_Click);
             // 
+            // складыToolStripMenuItem
+            // 
+            this.складыToolStripMenuItem.Name = "складыToolStripMenuItem";
+            this.складыToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.складыToolStripMenuItem.Text = "Склады";
+            this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // пополнитьСкладToolStripMenuItem
+            // 
+            this.пополнитьСкладToolStripMenuItem.Name = "пополнитьСкладToolStripMenuItem";
+            this.пополнитьСкладToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.пополнитьСкладToolStripMenuItem.Text = "Пополнить склад";
+            this.пополнитьСкладToolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
+            // 
+            // отчетыToolStripMenuItem1
+            // 
+            this.отчетыToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.списокИзделийToolStripMenuItem1,
+            this.тканиПоИзделиямToolStripMenuItem1,
+            this.списокЗаказовToolStripMenuItem1,
+            this.списокСкладовToolStripMenuItem,
+            this.тканиПоСкладамToolStripMenuItem,
+            this.информацияОЗаказахToolStripMenuItem});
+            this.отчетыToolStripMenuItem1.Name = "отчетыToolStripMenuItem1";
+            this.отчетыToolStripMenuItem1.Size = new System.Drawing.Size(60, 20);
+            this.отчетыToolStripMenuItem1.Text = "Отчеты";
+            // 
+            // списокИзделийToolStripMenuItem1
+            // 
+            this.списокИзделийToolStripMenuItem1.Name = "списокИзделийToolStripMenuItem1";
+            this.списокИзделийToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
+            this.списокИзделийToolStripMenuItem1.Text = "Список изделий";
+            this.списокИзделийToolStripMenuItem1.Click += new System.EventHandler(this.списокИзделийToolStripMenuItem_Click);
+            // 
+            // тканиПоИзделиямToolStripMenuItem1
+            // 
+            this.тканиПоИзделиямToolStripMenuItem1.Name = "тканиПоИзделиямToolStripMenuItem1";
+            this.тканиПоИзделиямToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
+            this.тканиПоИзделиямToolStripMenuItem1.Text = "Ткани по изделиям";
+            this.тканиПоИзделиямToolStripMenuItem1.Click += new System.EventHandler(this.тканиПоИзделиямToolStripMenuItem_Click);
+            // 
+            // списокЗаказовToolStripMenuItem1
+            // 
+            this.списокЗаказовToolStripMenuItem1.Name = "списокЗаказовToolStripMenuItem1";
+            this.списокЗаказовToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
+            this.списокЗаказовToolStripMenuItem1.Text = "Список заказов";
+            this.списокЗаказовToolStripMenuItem1.Click += new System.EventHandler(this.списокЗаказовToolStripMenuItem_Click);
+            // 
+            // списокСкладовToolStripMenuItem
+            // 
+            this.списокСкладовToolStripMenuItem.Name = "списокСкладовToolStripMenuItem";
+            this.списокСкладовToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.списокСкладовToolStripMenuItem.Text = "Список складов";
+            this.списокСкладовToolStripMenuItem.Click += new System.EventHandler(this.списокСкладовToolStripMenuItem_Click);
+            // 
+            // тканиПоСкладамToolStripMenuItem
+            // 
+            this.тканиПоСкладамToolStripMenuItem.Name = "тканиПоСкладамToolStripMenuItem";
+            this.тканиПоСкладамToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.тканиПоСкладамToolStripMenuItem.Text = "Ткани по складам";
+            this.тканиПоСкладамToolStripMenuItem.Click += new System.EventHandler(this.тканиПоСкладамToolStripMenuItem_Click);
+            // 
+            // информацияОЗаказахToolStripMenuItem
+            // 
+            this.информацияОЗаказахToolStripMenuItem.Name = "информацияОЗаказахToolStripMenuItem";
+            this.информацияОЗаказахToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.информацияОЗаказахToolStripMenuItem.Text = "Информация о заказах";
+            this.информацияОЗаказахToolStripMenuItem.Click += new System.EventHandler(this.информацияОЗаказахToolStripMenuItem_Click);
+            // 
             // отчетыToolStripMenuItem
             // 
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -98,21 +176,21 @@ namespace GarmentFactoryView
             // списокИзделийToolStripMenuItem
             // 
             this.списокИзделийToolStripMenuItem.Name = "списокИзделийToolStripMenuItem";
-            this.списокИзделийToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.списокИзделийToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.списокИзделийToolStripMenuItem.Text = "Список изделий";
             this.списокИзделийToolStripMenuItem.Click += new System.EventHandler(this.списокИзделийToolStripMenuItem_Click);
             // 
             // тканиПоИзделиямToolStripMenuItem
             // 
             this.тканиПоИзделиямToolStripMenuItem.Name = "тканиПоИзделиямToolStripMenuItem";
-            this.тканиПоИзделиямToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.тканиПоИзделиямToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.тканиПоИзделиямToolStripMenuItem.Text = "Ткани по изделиям";
             this.тканиПоИзделиямToolStripMenuItem.Click += new System.EventHandler(this.тканиПоИзделиямToolStripMenuItem_Click);
             // 
             // списокЗаказовToolStripMenuItem
             // 
             this.списокЗаказовToolStripMenuItem.Name = "списокЗаказовToolStripMenuItem";
-            this.списокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.списокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.списокЗаказовToolStripMenuItem.Text = "Список заказов";
             this.списокЗаказовToolStripMenuItem.Click += new System.EventHandler(this.списокЗаказовToolStripMenuItem_Click);
             // 
@@ -120,20 +198,18 @@ namespace GarmentFactoryView
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(17, 45);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dataGridView.Location = new System.Drawing.Point(12, 27);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 25;
-            this.dataGridView.Size = new System.Drawing.Size(894, 685);
+            this.dataGridView.Size = new System.Drawing.Size(626, 411);
             this.dataGridView.TabIndex = 1;
             // 
             // buttonCreateOrder
             // 
-            this.buttonCreateOrder.Location = new System.Drawing.Point(920, 45);
-            this.buttonCreateOrder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonCreateOrder.Location = new System.Drawing.Point(644, 27);
             this.buttonCreateOrder.Name = "buttonCreateOrder";
-            this.buttonCreateOrder.Size = new System.Drawing.Size(191, 38);
+            this.buttonCreateOrder.Size = new System.Drawing.Size(134, 23);
             this.buttonCreateOrder.TabIndex = 2;
             this.buttonCreateOrder.Text = "Создать заказ";
             this.buttonCreateOrder.UseVisualStyleBackColor = true;
@@ -141,10 +217,9 @@ namespace GarmentFactoryView
             // 
             // buttonTakeOrderInWork
             // 
-            this.buttonTakeOrderInWork.Location = new System.Drawing.Point(920, 93);
-            this.buttonTakeOrderInWork.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonTakeOrderInWork.Location = new System.Drawing.Point(644, 56);
             this.buttonTakeOrderInWork.Name = "buttonTakeOrderInWork";
-            this.buttonTakeOrderInWork.Size = new System.Drawing.Size(191, 63);
+            this.buttonTakeOrderInWork.Size = new System.Drawing.Size(134, 38);
             this.buttonTakeOrderInWork.TabIndex = 3;
             this.buttonTakeOrderInWork.Text = "Отдать заказ на выполнение";
             this.buttonTakeOrderInWork.UseVisualStyleBackColor = true;
@@ -152,10 +227,9 @@ namespace GarmentFactoryView
             // 
             // buttonOrderReady
             // 
-            this.buttonOrderReady.Location = new System.Drawing.Point(920, 167);
-            this.buttonOrderReady.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonOrderReady.Location = new System.Drawing.Point(644, 100);
             this.buttonOrderReady.Name = "buttonOrderReady";
-            this.buttonOrderReady.Size = new System.Drawing.Size(191, 38);
+            this.buttonOrderReady.Size = new System.Drawing.Size(134, 23);
             this.buttonOrderReady.TabIndex = 4;
             this.buttonOrderReady.Text = "Заказ готов";
             this.buttonOrderReady.UseVisualStyleBackColor = true;
@@ -163,10 +237,9 @@ namespace GarmentFactoryView
             // 
             // buttonIssuedOrder
             // 
-            this.buttonIssuedOrder.Location = new System.Drawing.Point(920, 215);
-            this.buttonIssuedOrder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonIssuedOrder.Location = new System.Drawing.Point(644, 129);
             this.buttonIssuedOrder.Name = "buttonIssuedOrder";
-            this.buttonIssuedOrder.Size = new System.Drawing.Size(191, 38);
+            this.buttonIssuedOrder.Size = new System.Drawing.Size(134, 23);
             this.buttonIssuedOrder.TabIndex = 5;
             this.buttonIssuedOrder.Text = "Заказ выдан";
             this.buttonIssuedOrder.UseVisualStyleBackColor = true;
@@ -174,10 +247,9 @@ namespace GarmentFactoryView
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(920, 263);
-            this.buttonRef.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonRef.Location = new System.Drawing.Point(644, 158);
             this.buttonRef.Name = "buttonRef";
-            this.buttonRef.Size = new System.Drawing.Size(191, 38);
+            this.buttonRef.Size = new System.Drawing.Size(134, 23);
             this.buttonRef.TabIndex = 6;
             this.buttonRef.Text = "Обновить список";
             this.buttonRef.UseVisualStyleBackColor = true;
@@ -192,9 +264,9 @@ namespace GarmentFactoryView
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1143, 750);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonIssuedOrder);
             this.Controls.Add(this.buttonOrderReady);
@@ -203,7 +275,6 @@ namespace GarmentFactoryView
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormMain";
             this.Text = "Швейная фабрика";
             this.Load += new System.EventHandler(this.FormMain_Load);

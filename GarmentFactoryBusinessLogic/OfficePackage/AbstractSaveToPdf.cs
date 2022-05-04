@@ -41,6 +41,33 @@ namespace GarmentFactoryBusinessLogic.OfficePackage
             SavePdf(info);
         }
 
+        public void CreateDocTotalOrders(PdfInfoTotalOrders info)
+        {
+            CreatePdf(info);
+            CreateParagraph(new PdfParagraph
+            {
+                Text = info.Title,
+                Style = "NormalTitle"
+            });
+            CreateTable(new List<string> { "3cm", "6cm", "6cm" });
+            CreateRow(new PdfRowParameters
+            {
+                Texts = new List<string> { "Дата заказа", "Общее количество", "Общая сумма" },
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            foreach (var order in info.TotalOrders)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Texts = new List<string> { order.DateCreate.ToShortDateString(), order.TotalCount.ToString(), order.TotalSum.ToString() },
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Left
+                });
+            }
+            SavePdf(info);
+        }
+
         // Создание doc-файла
         protected abstract void CreatePdf(PdfInfo info);
 
