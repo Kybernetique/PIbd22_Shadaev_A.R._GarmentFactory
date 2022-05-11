@@ -45,7 +45,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 // вытаскиваем список классов для сохранения
                 var dbsets = _backUpInfo.GetFullList();
                 // берем метод для сохранения (из базового абстрактного класса)
-                MethodInfo method = GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SaveToFile");
+                MethodInfo method = GetType().GetTypeInfo().GetDeclaredMethod("SaveToFile");
                 foreach (var set in dbsets)
                 {
                     // создаем объект из класса для сохранения
