@@ -102,7 +102,7 @@ namespace GarmentFactoryFileImplement.Implements
                 GarmentName = source.Garments.FirstOrDefault(garment => garment.Id == order.GarmentId)?.GarmentName,
                 ClientId = order.ClientId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
-                ImplementerId = order.ImplementerId,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
                 ImplementerFIO = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,

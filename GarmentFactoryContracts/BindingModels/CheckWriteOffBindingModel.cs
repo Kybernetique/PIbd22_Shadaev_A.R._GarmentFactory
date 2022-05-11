@@ -6,17 +6,10 @@ using System.Threading.Tasks;
 
 namespace GarmentFactoryContracts.BindingModels
 {
-    // Данные от клиента, для создания заказа
-    public class CreateOrderBindingModel
+    public class CheckWriteOffBindingModel
     {
         public int GarmentId { get; set; }
-
-        public int ClientId { get; set; }
-
-        public int ImplementerId { get; set; }
-
         public int Count { get; set; }
 
-        public decimal Sum { get; set; }
     }
 }

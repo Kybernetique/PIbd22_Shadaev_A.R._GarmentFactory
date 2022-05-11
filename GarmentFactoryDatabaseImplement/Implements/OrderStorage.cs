@@ -11,25 +11,45 @@ namespace GarmentFactoryDatabaseImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
-        public List<OrderViewModel> GetFullList()
+        public void Delete(OrderBindingModel model)
         {
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            return context.Orders
-                .Include(rec => rec.Garment)
-                .Include(rec => rec.Client)
-                .Include(rec => rec.Implementer)
-                .Select(CreateModel)
-                .ToList();
+            using var context = new GarmentFactoryDatabase();
+            Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Orders.Remove(element);
+                context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
         }
+
+        public OrderViewModel GetElement(OrderBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            using var context = new GarmentFactoryDatabase();
+            var order = context.Orders
+            .Include(rec => rec.Garment)
+            .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
+            .FirstOrDefault(rec => rec.Id == model.Id ||
+            rec.Id == model.Id);
+            return order != null ? CreateModel(order) : null;
+        }
+
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
+            if (model == null)
             {
-                if (model == null)
-                {
-                    return null;
-                }
-                GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-                return context.Orders
+                return null;
+            }
+            using var context = new GarmentFactoryDatabase();
+            return context.Orders
                .Include(rec => rec.Garment)
                .Include(rec => rec.Client)
                .Include(rec => rec.Implementer)
@@ -44,123 +64,80 @@ namespace GarmentFactoryDatabaseImplement.Implements
                     (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                .Select(CreateModel)
                .ToList();
-            }
         }
-        public OrderViewModel GetElement(OrderBindingModel model)
+
+        public List<OrderViewModel> GetFullList()
         {
-            if (model == null)
-            {
-                return null;
-            }
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Order order = context.Orders
+            using var context = new GarmentFactoryDatabase();
+            return context.Orders
             .Include(rec => rec.Garment)
             .Include(rec => rec.Client)
             .Include(rec => rec.Implementer)
-            .FirstOrDefault(rec => rec.Id == model.Id);
-            return order != null ?
-            new OrderViewModel
-            {
-                Id = order.Id,
-                GarmentId = order.GarmentId,
-                GarmentName = order.Garment.GarmentName,
-                ImplementerId = order.ImplementerId,
-                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
-                ClientId = order.ClientId,
-                Count = order.Count,
-                Sum = order.Sum,
-                Status = order.Status,
-                DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
-            } :
-            null;
+            .ToList()
+            .Select(CreateModel)
+            .ToList();
         }
+
         public void Insert(OrderBindingModel model)
         {
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Order order = new Order
+            using var context = new GarmentFactoryDatabase();
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                GarmentId = model.GarmentId,
-                ImplementerId = model.ImplementerId,
-                ClientId = (int)model.ClientId,
-                Count = model.Count,
-                Sum = model.Sum,
-                Status = model.Status,
-                DateCreate = model.DateCreate,
-                DateImplement = model.DateImplement,
-            };
-            context.Orders.Add(order);
-            context.SaveChanges();
-            CreateModel(model, order);
-            context.SaveChanges();
+                context.Orders.Add(CreateModel(model, new Order()));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
+
         public void Update(OrderBindingModel model)
         {
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element == null)
+            using var context = new GarmentFactoryDatabase();
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                throw new Exception("Элемент не найден");
-            }
-            element.GarmentId = model.GarmentId;
-            element.ClientId = (int)model.ClientId;
-            element.ImplementerId = model.ImplementerId;
-            element.Count = model.Count;
-            element.Sum = model.Sum;
-            element.Status = model.Status;
-            element.DateCreate = model.DateCreate;
-            element.DateImplement = model.DateImplement;
-            CreateModel(model, element);
-            context.SaveChanges();
-        }
-        public void Delete(OrderBindingModel model)
-        {
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element != null)
-            {
-                context.Orders.Remove(element);
-                context.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Элемент не найден");
-            }
-        }
-        private Order CreateModel(OrderBindingModel model, Order order)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
-            Garment element = context.Garments.FirstOrDefault(rec => rec.Id == model.GarmentId);
-            if (element != null)
-            {
-                if (element.Orders == null)
+                var element = context.Orders.FirstOrDefault(rec => rec.Id ==
+                model.Id);
+                if (element == null)
                 {
-                    element.Orders = new List<Order>();
+                    throw new Exception("Элемент не найден");
                 }
-                element.Orders.Add(order);
-                context.Garments.Update(element);
+                CreateModel(model, element);
                 context.SaveChanges();
+                transaction.Commit();
             }
-            else
+            catch
             {
-                throw new Exception("Элемент не найден");
+                transaction.Rollback();
+                throw;
             }
+        }
+        private static Order CreateModel(OrderBindingModel model, Order order)
+        {
+            order.GarmentId = model.GarmentId;
+            order.ClientId = (int)model.ClientId;
+            order.ImplementerId = (int)model.ImplementerId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            order.DateCreate = model.DateCreate;
+            order.DateImplement = model.DateImplement;
             return order;
         }
-
         private static OrderViewModel CreateModel(Order order)
         {
-            GarmentFactoryDatabase context = new GarmentFactoryDatabase();
+
             return new OrderViewModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
                 GarmentName = order.Garment.GarmentName,
+                ClientFIO = order.Client.ClientFIO,
                 ClientId = order.ClientId,
                 ImplementerId = order.ImplementerId,
                 ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,

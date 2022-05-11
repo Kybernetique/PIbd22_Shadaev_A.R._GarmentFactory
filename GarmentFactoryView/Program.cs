@@ -40,17 +40,20 @@ namespace GarmentFactoryView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IGarmentStorage, GarmentStorage>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
-            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ITextileLogic, TextileLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IGarmentLogic, GarmentLogic>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new
-               HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new
+            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientLogic, ClientLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientStorage, ClientStorage>(new
@@ -60,6 +63,10 @@ namespace GarmentFactoryView
             currentContainer.RegisterType<IImplementerStorage, ImplementerStorage>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWorkProcess, WorkModeling>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new
             HierarchicalLifetimeManager());
             return currentContainer;
         }

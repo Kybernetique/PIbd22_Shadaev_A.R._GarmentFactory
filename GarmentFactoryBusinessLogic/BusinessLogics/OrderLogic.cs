@@ -28,12 +28,13 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 GarmentId = model.GarmentId,
+                ImplementerId = model.ImplementerId,
                 ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
-            }); ;
+            });
         }
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
@@ -101,30 +102,39 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = _orderStorage.GetElement(new OrderBindingModel
+            {
+                Id = model.OrderId,
+            });
             if (order == null)
             {
-                throw new Exception("Не найден заказ");
+                throw new Exception("Заказ не найден");
             }
-            if (order.Status != OrderStatus.Принят)
+            if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
             {
-                throw new Exception("Заказ не в статусе \"Принят\"");
+                throw new Exception("Заказ не принят");
             }
-            if (!_warehouseStorage.TakeTextileFromWarehouse(_garmentStorage.GetElement(new GarmentBindingModel { Id = order.GarmentId }).GarmentTextiles, order.Count))
+            if (!_warehouseStorage.CheckWriteOff(new CheckWriteOffBindingModel
             {
-                throw new Exception("Недостаточно тканей для принятия в работу заказа");
+                GarmentId = order.GarmentId,
+                Count = order.Count
             }
+            ))
+            {
+                order.Status = OrderStatus.Требуются_материалы;
+            }
+            else order.Status = OrderStatus.Выполняется;
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
-                ClientId=order.ClientId,
                 ImplementerId = model.ImplementerId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
-                Status = OrderStatus.Выполняется
+                DateImplement = DateTime.Now,
+                Status = order.Status
             });
         }
     }

@@ -19,5 +19,6 @@ namespace GarmentFactoryContracts.StoragesContracts
         void Delete(WarehouseBindingModel model);
 
         bool TakeTextileFromWarehouse(Dictionary<int, (string, int)> textiles, int orderCount);
+        bool CheckWriteOff(CheckWriteOffBindingModel model);
     }
 }

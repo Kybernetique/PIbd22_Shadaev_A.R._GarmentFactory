@@ -11,6 +11,39 @@ namespace GarmentFactoryDatabaseImplement.Implements
 {
     public class WarehouseStorage : IWarehouseStorage
     {
+        public bool CheckWriteOff(CheckWriteOffBindingModel model)
+        {
+            using var context = new GarmentFactoryDatabase();
+            var neccesary = context.GarmentTextiles.Where(rec => rec.GarmentId == model.GarmentId)
+                                                       .ToDictionary(rec => rec.TextileId, rec => rec.Count * model.Count);
+            using var transaction = context.Database.BeginTransaction();
+            foreach (var key in neccesary.Keys)
+            {
+                foreach (var wt in context.WarehouseTextiles.Where(rec => rec.TextileId == key))
+                {
+                    if (wt.Count > neccesary[key])
+                    {
+                        wt.Count -= neccesary[key];
+                        neccesary[key] = 0;
+                        break;
+                    }
+                    else
+                    {
+                        neccesary[key] -= wt.Count;
+                        wt.Count = 0;
+                    }
+                }
+                if (neccesary[key] > 0)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+            context.SaveChanges();
+            transaction.Commit();
+            return true;
+        }
+
         public void Delete(WarehouseBindingModel model)
         {
             var context = new GarmentFactoryDatabase();

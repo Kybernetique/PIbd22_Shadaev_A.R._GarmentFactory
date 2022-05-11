@@ -108,6 +108,7 @@ namespace GarmentFactoryView
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     GarmentId = Convert.ToInt32(comboBoxGarment.SelectedValue),
+                    ImplementerId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)

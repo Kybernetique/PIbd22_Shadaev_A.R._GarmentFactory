@@ -31,7 +31,10 @@ namespace GarmentFactoryFileImplement
         public List<Garment> Garments { get; set; }
 
         public List<Client> Clients { get; set; }
+
         public List<Implementer> Implementers { get; set; }
+
+        public List<Warehouse> Warehouses { get; set; }
 
         private FileDataListSingleton()
         {
