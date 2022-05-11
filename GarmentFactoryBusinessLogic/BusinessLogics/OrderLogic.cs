@@ -6,23 +6,20 @@ using GarmentFactoryContracts.Enums;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryContracts.ViewModels;
 
+
 namespace GarmentFactoryBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-
         private readonly IWarehouseStorage _warehouseStorage;
-
         private readonly IGarmentStorage _garmentStorage;
-
         public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IGarmentStorage garmentStorage)
         {
             _orderStorage = orderStorage;
             _warehouseStorage = warehouseStorage;
             _garmentStorage = garmentStorage;
         }
-
         public void CreateOrder(CreateOrderBindingModel model)
         {
             _orderStorage.Insert(new OrderBindingModel
@@ -51,38 +48,13 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
-                ClientId=order.ClientId,
-                ImplementerId=order.ImplementerId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
-                Status = OrderStatus.Выдан
-            });
-        }
-
-        public void FinishOrder(ChangeStatusBindingModel model)
-        {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-            if (order == null)
-            {
-                throw new Exception("Не найден заказ");
-            }
-            if (order.Status != OrderStatus.Выполняется)
-            {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
-            }
-            _orderStorage.Update(new OrderBindingModel
-            {
-                Id = order.Id,
-                GarmentId = order.GarmentId,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
-                Count = order.Count,
-                Sum = order.Sum,
-                DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = OrderStatus.Готов
+                Status = OrderStatus.Выдан,
+                ImplementerId = order.ImplementerId
             });
         }
 
@@ -101,39 +73,67 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel
+            OrderViewModel order = _orderStorage.GetElement(new OrderBindingModel
             {
-                Id = model.OrderId,
+                Id = model.OrderId
             });
             if (order == null)
             {
-                throw new Exception("Заказ не найден");
+                throw new Exception("Не найден заказ");
             }
             if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
             {
-                throw new Exception("Заказ не принят");
+                throw new Exception("Заказ еще не принят");
             }
-            if (!_warehouseStorage.CheckWriteOff(new CheckWriteOffBindingModel
+            var updateBindingModel = new OrderBindingModel
             {
+                Id = order.Id,
                 GarmentId = order.GarmentId,
-                Count = order.Count
-            }
-            ))
+                Count = order.Count,
+                Sum = order.Sum,
+                DateCreate = order.DateCreate,
+                ClientId = order.ClientId
+            };
+            if (!_warehouseStorage.TakeTextileFromWarehouse(_garmentStorage.GetElement
+      (new GarmentBindingModel { Id = order.GarmentId }).GarmentTextiles, order.Count))
             {
-                order.Status = OrderStatus.Требуются_материалы;
+                updateBindingModel.Status = OrderStatus.Требуются_материалы;
             }
-            else order.Status = OrderStatus.Выполняется;
+            else
+            {
+                updateBindingModel.DateImplement = DateTime.Now;
+                updateBindingModel.Status = OrderStatus.Выполняется;
+                updateBindingModel.ImplementerId = model.ImplementerId;
+            }
+
+            _orderStorage.Update(updateBindingModel);
+        }
+
+        public void FinishOrder(ChangeStatusBindingModel model)
+        {
+            var order = _orderStorage.GetElement(new OrderBindingModel
+            {
+                Id = model.OrderId
+            });
+            if (order == null)
+            {
+                throw new Exception("Не найден заказ");
+            }
+            if (order.Status != OrderStatus.Выполняется)
+            {
+                throw new Exception("Заказ не в статусе \"Выполняется\"");
+            }
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
-                ImplementerId = model.ImplementerId,
                 ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = order.Status
+                DateImplement = order.DateImplement,
+                Status = OrderStatus.Готов
             });
         }
     }

@@ -18,31 +18,38 @@ namespace GarmentFactoryListImplement.Implements
         {
             source = DataListSingleton.GetInstance();
         }
+
         public List<ImplementerViewModel> GetFullList()
         {
-            var result = new List<ImplementerViewModel>();
+            List<ImplementerViewModel> result = new List<ImplementerViewModel>();
             foreach (var implementer in source.Implementers)
             {
                 result.Add(CreateModel(implementer));
             }
             return result;
         }
+
         public List<ImplementerViewModel> GetFilteredList(ImplementerBindingModel model)
         {
             if (model == null)
             {
                 return null;
             }
-            var result = new List<ImplementerViewModel>();
+            List<ImplementerViewModel> result = new List<ImplementerViewModel>();
             foreach (var implementer in source.Implementers)
             {
-                if (implementer.ImplementerFIO == model.ImplementerFIO)
+                if (implementer.ImplementerFIO.Contains(model.ImplementerFIO))
                 {
                     result.Add(CreateModel(implementer));
                 }
             }
-            return result;
+            if (result.Count > 0)
+            {
+                return result;
+            }
+            return null;
         }
+
         public ImplementerViewModel GetElement(ImplementerBindingModel model)
         {
             if (model == null)
@@ -51,16 +58,17 @@ namespace GarmentFactoryListImplement.Implements
             }
             foreach (var implementer in source.Implementers)
             {
-                if (implementer.Id == model.Id || implementer.ImplementerFIO == model.ImplementerFIO)
+                if (implementer.Id == model.Id)
                 {
                     return CreateModel(implementer);
                 }
             }
             return null;
         }
+
         public void Insert(ImplementerBindingModel model)
         {
-            var tempImplementer = new Implementer { Id = 1 };
+            Implementer tempImplementer = new Implementer { Id = 1 };
             foreach (var implementer in source.Implementers)
             {
                 if (implementer.Id >= tempImplementer.Id)
@@ -70,6 +78,7 @@ namespace GarmentFactoryListImplement.Implements
             }
             source.Implementers.Add(CreateModel(model, tempImplementer));
         }
+
         public void Update(ImplementerBindingModel model)
         {
             Implementer tempImplementer = null;
@@ -82,10 +91,11 @@ namespace GarmentFactoryListImplement.Implements
             }
             if (tempImplementer == null)
             {
-                throw new Exception("Исполнитель не найден");
+                throw new Exception("Элемент не найден");
             }
             CreateModel(model, tempImplementer);
         }
+
         public void Delete(ImplementerBindingModel model)
         {
             for (int i = 0; i < source.Implementers.Count; ++i)
@@ -96,26 +106,26 @@ namespace GarmentFactoryListImplement.Implements
                     return;
                 }
             }
-            throw new Exception("Исполнитель не найден");
+            throw new Exception("Элемент не найден");
         }
-        private static Implementer CreateModel(ImplementerBindingModel model,
-            Implementer implementer)
+
+        private Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
         {
             implementer.ImplementerFIO = model.ImplementerFIO;
             implementer.PauseTime = model.PauseTime;
             implementer.WorkingTime = model.WorkingTime;
             return implementer;
         }
-        private static ImplementerViewModel CreateModel(Implementer implementer)
+
+        private ImplementerViewModel CreateModel(Implementer implementer)
         {
             return new ImplementerViewModel
             {
                 Id = implementer.Id,
                 ImplementerFIO = implementer.ImplementerFIO,
-                WorkingTime = implementer.WorkingTime,
-                PauseTime = implementer.PauseTime
+                PauseTime = implementer.PauseTime,
+                WorkingTime = implementer.WorkingTime
             };
         }
-
     }
 }

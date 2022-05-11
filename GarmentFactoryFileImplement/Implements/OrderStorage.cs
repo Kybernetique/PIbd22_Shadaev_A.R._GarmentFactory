@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GarmentFactoryContracts.BindingModels;
+using GarmentFactoryContracts.Enums;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryContracts.ViewModels;
 using GarmentFactoryFileImplement.Models;
@@ -11,6 +12,7 @@ namespace GarmentFactoryFileImplement.Implements
     public class OrderStorage : IOrderStorage
     {
         private readonly FileDataListSingleton source;
+
         public OrderStorage()
         {
             source = FileDataListSingleton.GetInstance();
@@ -33,15 +35,12 @@ namespace GarmentFactoryFileImplement.Implements
                 return null;
             }
             return source.Orders
-                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
-                    rec.DateCreate.Date == model.DateCreate.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
-                    rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
-                    model.DateTo.Value.Date) ||
-                    (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
-                    (model.SearchStatus.HasValue && model.SearchStatus.Value ==
-                    rec.Status) ||
-                    (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
+                .Where(rec => rec.GarmentId.ToString().Contains(model.GarmentId.ToString())
+                    || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
+                    || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
+                    || (model.SearchStatus.HasValue && !rec.ImplementerId.HasValue)
+                    || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
                 .Select(CreateModel)
                 .ToList();
         }
@@ -66,11 +65,10 @@ namespace GarmentFactoryFileImplement.Implements
             }
             CreateModel(model, element);
         }
-
         public void Delete(OrderBindingModel model)
         {
             Order element = source.Orders
-                      .FirstOrDefault(rec => rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
                 source.Orders.Remove(element);
@@ -80,17 +78,16 @@ namespace GarmentFactoryFileImplement.Implements
                 throw new Exception("Элемент не найден");
             }
         }
-
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.GarmentId = model.GarmentId;
             order.ClientId = (int)model.ClientId;
-            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.ImplementerId = model.ImplementerId;
             return order;
         }
         private OrderViewModel CreateModel(Order order)
@@ -98,17 +95,17 @@ namespace GarmentFactoryFileImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
-                GarmentId = order.GarmentId,
-                GarmentName = source.Garments.FirstOrDefault(garment => garment.Id == order.GarmentId)?.GarmentName,
                 ClientId = order.ClientId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
-                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
-                ImplementerFIO = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
+                GarmentId = order.GarmentId,
+                GarmentName = source.Garments.FirstOrDefault(x => x.Id == order.GarmentId)?.GarmentName,
                 Count = order.Count,
                 Sum = order.Sum,
-                Status = order.Status,
                 DateCreate = order.DateCreate,
+                Status = order.Status,
                 DateImplement = order.DateImplement,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO : string.Empty
             };
         }
     }

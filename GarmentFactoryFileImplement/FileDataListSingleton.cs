@@ -187,16 +187,16 @@ namespace GarmentFactoryFileImplement
             var list = new List<Implementer>();
             if (File.Exists(ImplementerFileName))
             {
-                var xDocument = XDocument.Load(ImplementerFileName);
-                var xElements = xDocument.Root.Elements("Imlementer").ToList();
+                XDocument xDocument = XDocument.Load(ImplementerFileName);
+                var xElements = xDocument.Root.Elements("Implementer").ToList();
                 foreach (var elem in xElements)
                 {
                     list.Add(new Implementer
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ImplementerFIO = elem.Attribute("ImplementerFIO").Value,
+                        ImplementerFIO = elem.Element("ImplementerFIO").Value,
+                        WorkingTime = Convert.ToInt32(elem.Attribute("WorkingTime").Value),
                         PauseTime = Convert.ToInt32(elem.Attribute("PauseTime").Value),
-                        WorkingTime = Convert.ToInt32(elem.Attribute("WorkingTime").Value)
                     });
                 }
             }
@@ -309,17 +309,21 @@ namespace GarmentFactoryFileImplement
 
         private void SaveImplementers()
         {
-            var xElement = new XElement("Implementers");
-            foreach (var implementer in Implementers)
+            if (Implementers != null)
             {
-                xElement.Add(new XElement("Implementer",
+                var xElement = new XElement("Implementers");
+                foreach (var implementer in Implementers)
+                {
+                    xElement.Add(new XElement("Implementer",
                     new XAttribute("Id", implementer.Id),
-                    new XAttribute("ImplementerFIO", implementer.ImplementerFIO),
-                    new XAttribute("WorkingTime", implementer.WorkingTime),
-                    new XAttribute("PauseTime", implementer.PauseTime)));
+                    new XElement("ImplementerFIO", implementer.ImplementerFIO),
+                    new XElement("WorkingTime", implementer.WorkingTime),
+                    new XElement("PauseTime", implementer.PauseTime)
+                    ));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ImplementerFileName);
             }
-            var xDocument = new XDocument(xElement);
-            xDocument.Save(ImplementerFileName);
         }
     }
 

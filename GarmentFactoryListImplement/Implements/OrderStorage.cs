@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GarmentFactoryContracts.BindingModels;
+using GarmentFactoryContracts.Enums;
 using GarmentFactoryContracts.StoragesContracts;
 using GarmentFactoryContracts.ViewModels;
 using GarmentFactoryListImplement.Models;
@@ -13,14 +14,10 @@ namespace GarmentFactoryListImplement.Implements
     public class OrderStorage : IOrderStorage
     {
         private readonly DataListSingleton source;
-
         public OrderStorage()
         {
             source = DataListSingleton.GetInstance();
         }
-
-
-
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null)
@@ -36,7 +33,6 @@ namespace GarmentFactoryListImplement.Implements
             }
             return null;
         }
-
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null)
@@ -46,17 +42,18 @@ namespace GarmentFactoryListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate == model.DateCreate) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
-                    (model.ClientId.HasValue && order.ClientId == model.ClientId) || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status) ||
-                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
+                if (order.Id.Equals(model.Id)
+                    || (!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date)
+                    || (model.ClientId.HasValue && order.ClientId == model.ClientId)
+                    || (model.SearchStatus.HasValue && !order.ImplementerId.HasValue)
+                    || (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && order.Status == OrderStatus.Выполняется))
                 {
                     result.Add(CreateModel(order));
                 }
             }
             return result;
         }
-
         public List<OrderViewModel> GetFullList()
         {
             List<OrderViewModel> result = new List<OrderViewModel>();
@@ -66,7 +63,6 @@ namespace GarmentFactoryListImplement.Implements
             }
             return result;
         }
-
         public void Insert(OrderBindingModel model)
         {
             Order tempOrder = new Order { Id = 1 };
@@ -79,7 +75,6 @@ namespace GarmentFactoryListImplement.Implements
             }
             source.Orders.Add(CreateModel(model, tempOrder));
         }
-
         public void Update(OrderBindingModel model)
         {
             Order tempOrder = null;
@@ -96,7 +91,6 @@ namespace GarmentFactoryListImplement.Implements
             }
             CreateModel(model, tempOrder);
         }
-
         public void Delete(OrderBindingModel model)
         {
             for (int i = 0; i < source.Orders.Count; ++i)
@@ -109,20 +103,18 @@ namespace GarmentFactoryListImplement.Implements
             }
             throw new Exception("Элемент не найден");
         }
-
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.GarmentId = model.GarmentId;
             order.ClientId = (int)model.ClientId;
-            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.ImplementerId = model.ImplementerId;
             return order;
         }
-
         private OrderViewModel CreateModel(Order order)
         {
             string garmentName = null;
@@ -135,7 +127,6 @@ namespace GarmentFactoryListImplement.Implements
                 }
             }
 
-
             string clientFIO = null;
             foreach (var client in source.Clients)
             {
@@ -146,29 +137,30 @@ namespace GarmentFactoryListImplement.Implements
                 }
             }
             string implementerFIO = null;
-            for (int i = 0; i < source.Implementers.Count; i++)
+            if (order.ImplementerId != null)
             {
-                if (source.Implementers[i].Id == order.ImplementerId)
+                foreach (var implementer in source.Implementers)
                 {
-                    implementerFIO = source.Implementers[i].ImplementerFIO;
-                    break;
+                    if (implementer.Id == order.ImplementerId)
+                    {
+                        implementerFIO = implementer.ImplementerFIO;
+                        break;
+                    }
                 }
             }
-
             return new OrderViewModel
             {
                 Id = order.Id,
                 GarmentId = order.GarmentId,
                 GarmentName = garmentName,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
                 ClientFIO = clientFIO,
-                ImplementerFIO = implementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = implementerFIO
             };
         }
     }

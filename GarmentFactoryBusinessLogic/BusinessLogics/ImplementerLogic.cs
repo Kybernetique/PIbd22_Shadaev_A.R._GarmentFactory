@@ -1,12 +1,10 @@
-﻿using GarmentFactoryContracts.BindingModels;
-using GarmentFactoryContracts.BusinessLogicsContracts;
-using GarmentFactoryContracts.StoragesContracts;
-using GarmentFactoryContracts.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using GarmentFactoryContracts.BindingModels;
+using  GarmentFactoryContracts.BusinessLogicsContracts;
+using  GarmentFactoryContracts.StoragesContracts;
+using  GarmentFactoryContracts.ViewModels;
 
 namespace GarmentFactoryBusinessLogic.BusinessLogics
 {
@@ -19,6 +17,19 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             _implementerStorage = implementerStorage;
         }
 
+        public List<ImplementerViewModel> Read(ImplementerBindingModel model)
+        {
+            if (model == null)
+            {
+                return _implementerStorage.GetFullList();
+            }
+            if (model.Id.HasValue)
+            {
+                return new List<ImplementerViewModel> { _implementerStorage.GetElement(model) };
+            }
+            return _implementerStorage.GetFilteredList(model);
+        }
+
         public void CreateOrUpdate(ImplementerBindingModel model)
         {
             var element = _implementerStorage.GetElement(new ImplementerBindingModel
@@ -27,7 +38,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             });
             if (element != null && element.Id != model.Id)
             {
-                throw new Exception("Уже есть исполнитель с таким именем");
+                throw new Exception("Уже есть исполнитель с таким ФИО");
             }
             if (model.Id.HasValue)
             {
@@ -50,19 +61,6 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 throw new Exception("Исполнитель не найден");
             }
             _implementerStorage.Delete(model);
-        }
-
-        public List<ImplementerViewModel> Read(ImplementerBindingModel model)
-        {
-            if (model == null)
-            {
-                return _implementerStorage.GetFullList();
-            }
-            if (model.Id.HasValue)
-            {
-                return new List<ImplementerViewModel> { _implementerStorage.GetElement(model) };
-            }
-            return _implementerStorage.GetFilteredList(model);
         }
     }
 }

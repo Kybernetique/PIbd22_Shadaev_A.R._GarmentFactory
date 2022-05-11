@@ -14,18 +14,39 @@ namespace GarmentFactoryDatabaseImplement.Implements
 
     public class ImplementerStorage : IImplementerStorage
     {
-        public void Delete(ImplementerBindingModel model)
+        public List<ImplementerViewModel> GetFullList()
         {
-            using var context = new GarmentFactoryDatabase();
-            Implementer element = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element != null)
+            using (var context = new GarmentFactoryDatabase())
             {
-                context.Implementers.Remove(element);
-                context.SaveChanges();
+                return context.Implementers.Select(rec => new ImplementerViewModel
+                {
+                    Id = rec.Id,
+                    ImplementerFIO = rec.ImplementerFIO,
+                    WorkingTime = rec.WorkingTime,
+                    PauseTime = rec.PauseTime
+                })
+                .ToList();
             }
-            else
+        }
+
+        public List<ImplementerViewModel> GetFilteredList(ImplementerBindingModel model)
+        {
+            if (model == null)
             {
-                throw new Exception("Исполнитель не найден");
+                return null;
+            }
+            using (var context = new GarmentFactoryDatabase())
+            {
+                return context.Implementers
+                .Where(rec => rec.ImplementerFIO == model.ImplementerFIO)
+                .Select(rec => new ImplementerViewModel
+                {
+                    Id = rec.Id,
+                    ImplementerFIO = rec.ImplementerFIO,
+                    WorkingTime = rec.WorkingTime,
+                    PauseTime = rec.PauseTime
+                })
+                .ToList();
             }
         }
 
@@ -35,70 +56,62 @@ namespace GarmentFactoryDatabaseImplement.Implements
             {
                 return null;
             }
-            using var context = new GarmentFactoryDatabase();
-            var implementer = context.Implementers.Include(x => x.Orders)
-            .FirstOrDefault(rec => rec.Id == model.Id || rec.ImplementerFIO == model.ImplementerFIO);
-            return implementer != null ?
-            new ImplementerViewModel
+            using (var context = new GarmentFactoryDatabase())
             {
-                Id = implementer.Id,
-                ImplementerFIO = implementer.ImplementerFIO,
-                WorkingTime = implementer.WorkingTime,
-                PauseTime = implementer.PauseTime
-            } :
-            null;
-        }
-
-        public List<ImplementerViewModel> GetFilteredList(ImplementerBindingModel model)
-        {
-            if (model == null)
-            {
-                return null;
+                var implementer = context.Implementers
+                .FirstOrDefault(rec => rec.Id == model.Id);
+                return implementer != null ?
+                new ImplementerViewModel
+                {
+                    Id = implementer.Id,
+                    ImplementerFIO = implementer.ImplementerFIO,
+                    WorkingTime = implementer.WorkingTime,
+                    PauseTime = implementer.PauseTime
+                } :
+                null;
             }
-            using var context = new GarmentFactoryDatabase();
-            return context.Implementers.Include(x => x.Orders)
-            .Where(rec => rec.ImplementerFIO == model.ImplementerFIO)
-            .Select(rec => new ImplementerViewModel
-            {
-                Id = rec.Id,
-                ImplementerFIO = rec.ImplementerFIO,
-                WorkingTime = rec.WorkingTime,
-                PauseTime = rec.PauseTime
-            })
-            .ToList();
-        }
-
-        public List<ImplementerViewModel> GetFullList()
-        {
-            using var context = new GarmentFactoryDatabase();
-            return context.Implementers.Select(rec => new ImplementerViewModel
-            {
-                Id = rec.Id,
-                ImplementerFIO = rec.ImplementerFIO,
-                WorkingTime = rec.WorkingTime,
-                PauseTime = rec.PauseTime
-            })
-            .ToList();
         }
 
         public void Insert(ImplementerBindingModel model)
         {
-            using var context = new GarmentFactoryDatabase();
-            context.Implementers.Add(CreateModel(model, new Implementer()));
-            context.SaveChanges();
+            using (var context = new GarmentFactoryDatabase())
+            {
+                context.Implementers.Add(CreateModel(model, new Implementer()));
+                context.SaveChanges();
+            }
         }
 
         public void Update(ImplementerBindingModel model)
         {
-            using var context = new GarmentFactoryDatabase();
-            var element = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element == null)
+            using (var context = new GarmentFactoryDatabase())
             {
-                throw new Exception("Исполнитель не найден");
+                var implementer = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
+                if (implementer == null)
+                {
+                    throw new Exception("Исполнитель не найден");
+                }
+                CreateModel(model, implementer);
+                context.SaveChanges();
             }
-            CreateModel(model, element);
-            context.SaveChanges();
         }
+
+        public void Delete(ImplementerBindingModel model)
+        {
+            using (var context = new GarmentFactoryDatabase())
+            {
+                Implementer implementer = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
+                if (implementer != null)
+                {
+                    context.Implementers.Remove(implementer);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Исполнитель не найден");
+                }
+            }
+        }
+
         private Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
         {
             implementer.ImplementerFIO = model.ImplementerFIO;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GarmentFactoryBusinessLogic.BusinessLogics;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryFileImplement;
@@ -45,6 +46,11 @@ namespace GarmentFactoryView
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = false;
                     dataGridView.Columns[3].Visible = false;
+                    dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -251,6 +257,7 @@ namespace GarmentFactoryView
 
         private void запуститьРаботыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var workModeling = Program.Container.Resolve<WorkModeling>();
             _workProcces.DoWork(_implementerLogic, _orderLogic);
             LoadData();
         }
