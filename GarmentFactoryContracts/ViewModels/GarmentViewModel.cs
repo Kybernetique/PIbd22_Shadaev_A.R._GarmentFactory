@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GarmentFactoryContracts.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,14 +11,29 @@ namespace GarmentFactoryContracts.ViewModels
     // Изделие, изготавливаемое в магазине
     public class GarmentViewModel
     {
+        [Column(title: "Номер", width: 100, visible: false)]
         public int Id { get; set; }
 
-        [DisplayName("Название швейного изделия")]
+        [Column(title: "Название швейного изделия", width: 150)]
         public string GarmentName { get; set; }
 
-        [DisplayName("Цена")]
+        [Column(title: "Цена", width: 100)]
         public decimal Price { get; set; }
 
+        [Column(title: "Ткани", gridViewAutoSize: GridViewAutoSize.Fill)]
         public Dictionary<int, (string, int)> GarmentTextiles { get; set; }
+
+        public string GetTextiles()
+        {
+            string stringTextiles = string.Empty;
+            if (GarmentTextiles != null)
+            {
+                foreach (var textile in GarmentTextiles)
+                {
+                    stringTextiles += textile.Key + ") " + textile.Value.Item1 + ": " + textile.Value.Item2 + ", ";
+                }
+            }
+            return stringTextiles;
+        }
     }
 }

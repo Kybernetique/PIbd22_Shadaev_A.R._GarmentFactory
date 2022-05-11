@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GarmentFactoryContracts.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace GarmentFactoryContracts.ViewModels
     // Ткань, требуемая для изготовления швейного изделия
     public class TextileViewModel
     {
+        [Column(title: "Номер", width: 100, visible: false)]
         public int Id { get; set; }
 
-        [DisplayName("Название ткани")]
+        [Column(title: "Ткань", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string TextileName { get; set; }
 
     }

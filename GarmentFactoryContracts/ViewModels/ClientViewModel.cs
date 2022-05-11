@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using GarmentFactoryContracts.Attributes;
 
 namespace GarmentFactoryContracts.ViewModels
 {
     public class ClientViewModel
     {
+        [Column(title: "Номер", width: 50, visible: false)]
         public int Id { get; set; }
 
-        [DisplayName("ФИО клиента")]
+        [Column(title: "ФИО", width: 150)]
         public string ClientFIO { get; set; }
 
-        [DisplayName("Почта")]
+        [Column(title: "Логин", gridViewAutoSize: GridViewAutoSize.Fill)] 
         public string Email { get; set; }
 
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 150)]
         public string Password { get; set; }
     }
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GarmentFactoryContracts.Attributes;
 using GarmentFactoryContracts.Enums;
+using System;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace GarmentFactoryContracts.ViewModels
 {
     // Заказ
     public class OrderViewModel
     {
+        [Column(title: "Номер", width: 100)]
         public int Id { get; set; }
 
         public int GarmentId { get; set; }
@@ -19,28 +18,29 @@ namespace GarmentFactoryContracts.ViewModels
 
         public int? ImplementerId { get; set; }
 
-        [DisplayName("ФИО клиента")]
+        [Column(title: "Клиент", width: 150)]
         public string ClientFIO { get; set; }
 
-        [DisplayName("Швейное изделие")]
+        [Column(title: "Швейное изделие", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string GarmentName { get; set; }
 
-        [DisplayName("ФИО исполнителя")]
+        [Column(title: "Исполнитель", width: 150)]
+        [DataMember]
         public string ImplementerFIO { get; set; }
 
-        [DisplayName("Количество")]
+        [Column(title: "Количество", width: 100)]
         public int Count { get; set; }
 
-        [DisplayName("Сумма")]
+        [Column(title: "Сумма", width: 50)]
         public decimal Sum { get; set; }
 
-        [DisplayName("Статус")]
+        [Column(title: "Статус", width: 100)]
         public OrderStatus Status { get; set; }
 
-        [DisplayName("Дата создания")]
+        [Column(title: "Дата создания", width: 100)]
         public DateTime DateCreate { get; set; }
 
-        [DisplayName("Дата выполнения")]
+        [Column(title: "Дата выполнения", width: 100)]
         public DateTime? DateImplement { get; set; }
     }
 }

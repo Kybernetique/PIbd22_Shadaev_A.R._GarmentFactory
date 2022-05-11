@@ -27,6 +27,7 @@ namespace GarmentFactoryListImplement.Implements
             }
             return result;
         }
+
         public List<ImplementerViewModel> GetFilteredList(ImplementerBindingModel model)
         {
             if (model == null)
