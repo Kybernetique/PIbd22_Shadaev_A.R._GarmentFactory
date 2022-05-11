@@ -28,7 +28,6 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 GarmentId = model.GarmentId,
-                ImplementerId = model.ImplementerId,
                 ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
