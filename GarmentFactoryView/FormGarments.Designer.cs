@@ -46,12 +46,12 @@ namespace GarmentFactoryView
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 25;
-            this.dataGridView.Size = new System.Drawing.Size(514, 405);
+            this.dataGridView.Size = new System.Drawing.Size(949, 405);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(540, 20);
+            this.buttonAdd.Location = new System.Drawing.Point(974, 20);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(107, 38);
@@ -62,7 +62,7 @@ namespace GarmentFactoryView
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(540, 68);
+            this.buttonChange.Location = new System.Drawing.Point(974, 68);
             this.buttonChange.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(107, 38);
@@ -73,7 +73,7 @@ namespace GarmentFactoryView
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(540, 117);
+            this.buttonDelete.Location = new System.Drawing.Point(974, 116);
             this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(107, 38);
@@ -84,7 +84,7 @@ namespace GarmentFactoryView
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(540, 165);
+            this.buttonUpdate.Location = new System.Drawing.Point(974, 164);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(107, 38);
@@ -97,7 +97,7 @@ namespace GarmentFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 474);
+            this.ClientSize = new System.Drawing.Size(1094, 454);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonChange);

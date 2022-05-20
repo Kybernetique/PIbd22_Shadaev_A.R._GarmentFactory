@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
+using System.Xml.Serialization;
 
 namespace GarmentFactoryBusinessLogic.BusinessLogics
 {
@@ -49,8 +50,7 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 foreach (var set in dbsets)
                 {
                     // создаем объект из класса для сохранения
-                    var elem =
-                    assem.CreateInstance(set.PropertyType.GenericTypeArguments[0].FullName);
+                    var elem = assem.CreateInstance(set.PropertyType.GenericTypeArguments[0].FullName);
                     // генерируем метод, исходя из класса
                     MethodInfo generic = method.MakeGenericMethod(elem.GetType());
                     // вызываем метод на выполнение
@@ -72,10 +72,10 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
         {
             var records = _backUpInfo.GetList<T>();
             var obj = new T();
-            var jsonFormatter = new DataContractJsonSerializer(typeof(List<T>));
-            using var fs = new FileStream(string.Format("{0}/{1}.json",
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));
+            using var fs = new FileStream(string.Format("{0}/{1}.xml",
             folderName, obj.GetType().Name), FileMode.OpenOrCreate);
-            jsonFormatter.WriteObject(fs, records);
+            xmlSerializer.Serialize(fs, records);
         }
     }
 }

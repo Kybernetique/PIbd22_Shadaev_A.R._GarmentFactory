@@ -45,12 +45,12 @@ namespace GarmentFactoryView
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 33;
-            this.dataGridView.Size = new System.Drawing.Size(360, 225);
+            this.dataGridView.Size = new System.Drawing.Size(422, 294);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(378, 12);
+            this.buttonAdd.Location = new System.Drawing.Point(440, 12);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(112, 34);
             this.buttonAdd.TabIndex = 1;
@@ -60,7 +60,7 @@ namespace GarmentFactoryView
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(378, 52);
+            this.buttonChange.Location = new System.Drawing.Point(440, 52);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(112, 34);
             this.buttonChange.TabIndex = 2;
@@ -70,7 +70,7 @@ namespace GarmentFactoryView
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(378, 92);
+            this.buttonDel.Location = new System.Drawing.Point(440, 92);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(112, 34);
             this.buttonDel.TabIndex = 3;
@@ -80,7 +80,7 @@ namespace GarmentFactoryView
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(378, 132);
+            this.buttonUpdate.Location = new System.Drawing.Point(440, 132);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(112, 34);
             this.buttonUpdate.TabIndex = 4;
@@ -92,7 +92,7 @@ namespace GarmentFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(578, 336);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonChange);
