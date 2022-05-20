@@ -104,7 +104,7 @@ namespace GarmentFactoryFileImplement.Implements
                 DateCreate = order.DateCreate,
                 Status = order.Status,
                 DateImplement = order.DateImplement,
-                ImplementerId = order.ImplementerId,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null, 
                 ImplementerFIO = order.ImplementerId.HasValue ? source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO : string.Empty
             };
         }
