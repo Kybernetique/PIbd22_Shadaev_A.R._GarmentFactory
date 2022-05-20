@@ -28,64 +28,7 @@ namespace GarmentFactoryFileImplement.Implements
                 throw new Exception("Элемент не найден");
             }
         }
-        public bool CheckWriteOff(CheckWriteOffBindingModel model)
-        {
-            var list = GetFullList();
-            var neccesary = new Dictionary<int, int>(source.Garments.FirstOrDefault(rec => rec.Id == model.GarmentId).GarmentTextiles);
-            var available = new Dictionary<int, int>();
-            neccesary.ToDictionary(kvp => neccesary[kvp.Key] *= model.Count);
-            foreach (var warehouse in list)
-            {
-                foreach (var ingr in warehouse.WarehouseTextiles)
-                {
-                    if (available.ContainsKey(ingr.Key))
-                    {
-                        available[ingr.Key] += ingr.Value.Item2;
-                    }
-                    else
-                    {
-                        available.Add(ingr.Key, ingr.Value.Item2);
-                    }
-                }
-            }
-
-            bool can = available.ToList().All(ingr => ingr.Value >= neccesary[ingr.Key]);
-            if (!can || available.Count == 0)
-            {
-                return false;
-            }
-
-            foreach (var warehouse in list)
-            {
-                var warehouseTextiles = warehouse.WarehouseTextiles;
-                foreach (var key in warehouse.WarehouseTextiles.Keys)
-                {
-                    var value = warehouse.WarehouseTextiles[key];
-                    if (neccesary.ContainsKey(key))
-                    {
-                        if (value.Item2 > neccesary[key])
-                        {
-                            warehouseTextiles[key] = (value.Item1, value.Item2 - neccesary[key]);
-                            neccesary[key] = 0;
-                        }
-                        else
-                        {
-                            warehouseTextiles[key] = (value.Item1, 0);
-                            neccesary[key] -= value.Item2;
-                        }
-                        Update(new WarehouseBindingModel
-                        {
-                            Id = warehouse.Id,
-                            WarehouseName = warehouse.WarehouseName,
-                            ResponsibleFullName = warehouse.ResponsibleFullName,
-                            CreateDate = warehouse.CreateDate,
-                            WarehouseTextiles = warehouseTextiles
-                        });
-                    }
-                }
-            }
-            return true;
-        }
+       
         public WarehouseViewModel GetElement(WarehouseBindingModel model)
         {
             if (model == null)

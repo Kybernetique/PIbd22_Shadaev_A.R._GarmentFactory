@@ -78,7 +78,7 @@ namespace GarmentFactoryView
         {
             if (string.IsNullOrEmpty(textBoxReply.Text))
             {
-                MessageBox.Show("Enter text", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Введите текст", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -86,7 +86,7 @@ namespace GarmentFactoryView
                 _mailWorker.MailSendAsync(new MailSendInfoBindingModel
                 {
                     MailAddress = labelSender.Text,
-                    Subject = "Answer for: " + labelSubject.Text,
+                    Subject = "Ответ: " + labelSubject.Text,
                     Text = textBoxReply.Text
                 });
 
@@ -102,13 +102,13 @@ namespace GarmentFactoryView
                     ReplyText = textBoxReply.Text
                 });
 
-                MessageBox.Show("Answer sent", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Ответ отправлен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

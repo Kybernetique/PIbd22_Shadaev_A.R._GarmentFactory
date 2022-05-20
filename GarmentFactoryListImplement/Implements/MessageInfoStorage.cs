@@ -88,7 +88,7 @@ namespace GarmentFactoryListImplement.Implements
             }
             if (tempMessage == null)
             {
-                throw new Exception("Element is not found");
+                throw new Exception("Элемент не найден");
             }
             CreateModel(model, tempMessage);
         }

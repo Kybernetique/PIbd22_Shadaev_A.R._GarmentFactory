@@ -52,7 +52,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
             MessageInfo element = context.Messages.FirstOrDefault(rec => rec.MessageId == model.MessageId);
             if (element != null)
             {
-                throw new Exception("There is already message with the same identification number");
+                throw new Exception("Уже существует письмо с таким же идентификатором");
             }
             context.Messages.Add(new MessageInfo
             {
@@ -75,7 +75,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 var element = context.Messages.FirstOrDefault(rec => rec.MessageId == model.MessageId);
                 if (element == null)
                 {
-                    throw new Exception("Element is not found");
+                    throw new Exception("Элемент не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();

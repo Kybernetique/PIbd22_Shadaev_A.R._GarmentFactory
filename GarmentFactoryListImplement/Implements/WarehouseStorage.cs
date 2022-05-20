@@ -160,10 +160,5 @@ namespace GarmentFactoryListImplement.Implements
             }
             return warehouse;
         }
-
-        public bool CheckWriteOff(CheckWriteOffBindingModel model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
