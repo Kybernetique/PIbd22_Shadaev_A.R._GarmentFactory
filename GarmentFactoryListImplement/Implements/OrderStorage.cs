@@ -161,7 +161,7 @@ namespace GarmentFactoryListImplement.Implements
                 GarmentId = order.GarmentId,
                 GarmentName = garmentName,
                 ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
                 ClientFIO = clientFIO,
                 ImplementerFIO = implementerFIO,
                 Count = order.Count,
