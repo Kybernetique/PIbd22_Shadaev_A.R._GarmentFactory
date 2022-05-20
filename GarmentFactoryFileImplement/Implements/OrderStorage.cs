@@ -95,17 +95,17 @@ namespace GarmentFactoryFileImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
+                GarmentId = order.GarmentId,
+                GarmentName = source.Garments.FirstOrDefault(garment => garment.Id == order.GarmentId)?.GarmentName,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
+                ImplementerFIO = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
                 ClientId = order.ClientId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
-                GarmentId = order.GarmentId,
-                GarmentName = source.Garments.FirstOrDefault(x => x.Id == order.GarmentId)?.GarmentName,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 Status = order.Status,
                 DateImplement = order.DateImplement,
-                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null, 
-                ImplementerFIO = order.ImplementerId.HasValue ? source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO : string.Empty
             };
         }
     }

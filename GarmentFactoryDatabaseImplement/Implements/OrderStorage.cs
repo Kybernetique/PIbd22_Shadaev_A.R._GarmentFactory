@@ -26,7 +26,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                     GarmentName = rec.Garment.GarmentName,
                     ClientId = rec.ClientId,
                     ImplementerId = rec.ImplementerId,
-                    ClientFIO = rec.Client.ClientFIO,
+                    ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == rec.ClientId).ClientFIO,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -47,7 +47,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 .Include(rec => rec.Garment)
                 .Include(rec => rec.Client)
                 .Include(rec => rec.Implementer)
-                .Where(rec => rec.GarmentId == model.GarmentId
+                .Where(rec => rec.GarmentId.Equals(model.GarmentId)
                     || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
                     || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
                     || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
@@ -59,7 +59,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                     GarmentId = rec.GarmentId,
                     GarmentName = rec.Garment.GarmentName,
                     ClientId = rec.ClientId,
-                    ClientFIO = rec.Client.ClientFIO,
+                    ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == rec.ClientId).ClientFIO,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -88,7 +88,7 @@ namespace GarmentFactoryDatabaseImplement.Implements
                 GarmentId = order.GarmentId,
                 GarmentName = order.Garment.GarmentName,
                 ClientId = order.ClientId,
-                ClientFIO = order.Client.ClientFIO,
+                ClientFIO = context.Clients.Include(x => x.Orders).FirstOrDefault(x => x.Id == order.ClientId)?.ClientFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

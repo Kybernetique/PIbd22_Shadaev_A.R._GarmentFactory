@@ -208,7 +208,7 @@ namespace GarmentFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 750);
+            this.ClientSize = new System.Drawing.Size(1143, 750);
             this.Controls.Add(this.groupBoxTextiles);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.labelPrice);

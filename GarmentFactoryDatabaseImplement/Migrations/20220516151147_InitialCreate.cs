@@ -80,6 +80,30 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    MessageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: true),
+                    SenderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateDelivery = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Viewed = table.Column<bool>(type: "bit", nullable: false),
+                    ReplyText = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.MessageId);
+                    table.ForeignKey(
+                        name: "FK_Messages_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -182,6 +206,11 @@ namespace GarmentFactoryDatabaseImplement.Migrations
                 column: "TextileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_ClientId",
+                table: "Messages",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ClientId",
                 table: "Orders",
                 column: "ClientId");
@@ -211,6 +240,9 @@ namespace GarmentFactoryDatabaseImplement.Migrations
         {
             migrationBuilder.DropTable(
                 name: "GarmentTextiles");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Orders");

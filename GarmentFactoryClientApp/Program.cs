@@ -8,6 +8,8 @@ namespace GarmentFactoryClientApp
     {
         public static ClientViewModel Client { get; set; }
 
+        public static int pageNumber = 1;
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

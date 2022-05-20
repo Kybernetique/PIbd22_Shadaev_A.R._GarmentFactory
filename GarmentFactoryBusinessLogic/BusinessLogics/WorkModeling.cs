@@ -60,14 +60,14 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
-            var requiredMaterials = await Task.Run(() => _orderLogic.Read(new
+            var requireMaterialOrders = await Task.Run(() => _orderLogic.Read(new
             OrderBindingModel
             {
                 ImplementerId = implementer.Id,
                 Status = OrderStatus.Требуются_материалы
             }));
 
-            foreach (var order in requiredMaterials)
+            foreach (var order in requireMaterialOrders)
             {
                 try
                 {

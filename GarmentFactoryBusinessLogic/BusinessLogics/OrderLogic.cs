@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GarmentFactoryBusinessLogic.MailWorker;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.Enums;
@@ -12,13 +13,17 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        private readonly IWarehouseStorage _warehouseStorage;
-        private readonly IGarmentStorage _garmentStorage;
-        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IGarmentStorage garmentStorage)
+
+        private readonly AbstractMailWorker _mailWorker;
+
+        private readonly IClientStorage _clientStorage;
+
+        public OrderLogic(IOrderStorage orderStorage,
+            AbstractMailWorker mailWorker, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
-            _warehouseStorage = warehouseStorage;
-            _garmentStorage = garmentStorage;
+            _mailWorker = mailWorker;
+            _clientStorage = clientStorage;
         }
         public void CreateOrder(CreateOrderBindingModel model)
         {
@@ -30,6 +35,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
+            }); ;
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = model.ClientId })?.Email,
+                Subject = "Заказ создан",
+                Text = $"Дата: {DateTime.Now}, сумма: {model.Sum}"
             });
         }
 
@@ -55,6 +66,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выдан,
                 ImplementerId = order.ImplementerId
+            });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ выдан",
+                Text = $"Заказ №{order.Id} выдан, Дата: {DateTime.Now}"
             });
         }
 
@@ -92,23 +109,16 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                ClientId = order.ClientId
+                DateImplement = DateTime.Now,
+                Status = OrderStatus.Готов
             };
-            if (!_warehouseStorage.TakeTextileFromWarehouse(_garmentStorage.GetElement
-      (new GarmentBindingModel { Id = order.GarmentId }).GarmentTextiles, order.Count))
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
             {
-                updateBindingModel.Status = OrderStatus.Требуются_материалы;
-            }
-            else
-            {
-                updateBindingModel.DateImplement = DateTime.Now;
-                updateBindingModel.Status = OrderStatus.Выполняется;
-                updateBindingModel.ImplementerId = model.ImplementerId;
-            }
-
-            _orderStorage.Update(updateBindingModel);
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ готов!",
+                Text = $"Заказ №{order.Id} готов, Дата: {DateTime.Now}"
+            });
         }
-
         public void FinishOrder(ChangeStatusBindingModel model)
         {
             var order = _orderStorage.GetElement(new OrderBindingModel
@@ -134,6 +144,12 @@ namespace GarmentFactoryBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
+            });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Email,
+                Subject = "Заказ выполняется",
+                Text = $"Заказ №{order.Id} выполняется, Дата: {DateTime.Now}"
             });
         }
     }

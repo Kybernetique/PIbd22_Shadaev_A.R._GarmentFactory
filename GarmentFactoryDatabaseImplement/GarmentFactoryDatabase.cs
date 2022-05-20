@@ -29,5 +29,7 @@ namespace GarmentFactoryDatabaseImplement
         public virtual DbSet<Implementer> Implementers { set; get; }
 
         public virtual DbSet<WarehouseTextile> WarehouseTextiles { set; get; }
+
+        public virtual DbSet<MessageInfo> Messages { set; get; }
     }
 }

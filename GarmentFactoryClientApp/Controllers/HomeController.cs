@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace GarmentFactoryClientApp.Controllers
 {
@@ -48,17 +49,18 @@ namespace GarmentFactoryClientApp.Controllers
                 {
                     Id = Program.Client.Id,
                     ClientFIO = fio,
-                    Login = login,
+                    Email = login,
                     Password = password
                 });
                 Program.Client.ClientFIO = fio;
-                Program.Client.Login = login;
+                Program.Client.Email = login;
                 Program.Client.Password = password;
                 Response.Redirect("Index");
                 return;
             }
             throw new Exception("Введите логин, пароль и ФИО");
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore
         = true)]
         public IActionResult Error()
@@ -106,7 +108,7 @@ namespace GarmentFactoryClientApp.Controllers
                 APIClient.PostRequest("api/client/register", new ClientBindingModel
                 {
                     ClientFIO = fio,
-                    Login = login,
+                    Email = login,
                     Password = password
                 });
                 Response.Redirect("Enter");
@@ -145,6 +147,19 @@ namespace GarmentFactoryClientApp.Controllers
         {
             GarmentViewModel garm = APIClient.GetRequest<GarmentViewModel>($"api/main/getgarment?garmentId={garment}");
             return count * garm.Price;
+        }
+
+        [HttpGet]
+        public IActionResult Messages(int page = 1)
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            var temp = APIClient.GetRequest<(List<MessageInfoViewModel> list, bool hasNext)>
+                ($"api/main/GetMessages?clientId={Program.Client.Id}&page={page}");
+            (List<MessageInfoViewModel>, bool, int) model = (temp.list, temp.hasNext, page);
+            return View(model);
         }
     }
 }
