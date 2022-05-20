@@ -159,7 +159,7 @@ namespace GarmentFactoryListImplement.Implements
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
-                ImplementerId = order.ImplementerId,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
                 ImplementerFIO = implementerFIO
             };
         }
