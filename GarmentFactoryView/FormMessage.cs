@@ -40,7 +40,7 @@ namespace GarmentFactoryView
                     MessageInfoViewModel view = _messageLogic.Read(new MessageInfoBindingModel { MessageId = _messageId })?[0];
                     if (view != null)
                     {
-                        if (view.Viewed.Equals(false))
+                        if (!view.Viewed)
                         {
                             _messageLogic.CreateOrUpdate(new MessageInfoBindingModel
                             {

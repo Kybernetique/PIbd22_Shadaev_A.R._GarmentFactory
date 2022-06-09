@@ -20,6 +20,16 @@ namespace GarmentFactoryContracts.ViewModels
         public string Subject { get; set; }
 
         [Column(title: "Текст", gridViewAutoSize: GridViewAutoSize.AllCells)]
+
         public string Body { get; set; }
+        [Column(title: "Статус", width: 50)]
+
+        public bool Viewed { get; set; }
+
+        [Column(title: "Ответ", gridViewAutoSize: GridViewAutoSize.Fill)]
+        public string ReplyText
+        {
+            get; set;
+        }
     }
 }
