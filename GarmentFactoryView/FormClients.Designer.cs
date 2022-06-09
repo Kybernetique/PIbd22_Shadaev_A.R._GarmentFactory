@@ -42,12 +42,12 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 62;
             this.dataGridView.RowTemplate.Height = 33;
-            this.dataGridView.Size = new System.Drawing.Size(608, 464);
+            this.dataGridView.Size = new System.Drawing.Size(434, 248);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(626, 52);
+            this.buttonDelete.Location = new System.Drawing.Point(452, 52);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(195, 34);
             this.buttonDelete.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(626, 12);
+            this.buttonUpdate.Location = new System.Drawing.Point(452, 12);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(195, 34);
             this.buttonUpdate.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(833, 488);
+            this.ClientSize = new System.Drawing.Size(668, 309);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.dataGridView);

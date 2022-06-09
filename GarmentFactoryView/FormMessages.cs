@@ -81,12 +81,13 @@ namespace GarmentFactoryView
 
         public void LoadData()
         {
-            var list = logic.Read(new MessageInfoBindingModel
+            Program.ConfigGrid(logic.Read(new MessageInfoBindingModel
             {
                 ToSkip = currentPage * mailsOnPage,
                 ToTake = mailsOnPage + 1
-            });
-            hasNext = !(list.Count() <= mailsOnPage);
+            }), dataGridView);
+            labelPageNumber.Text = currentPage.ToString();
+            hasNext = !(dataGridView.Rows.Count <= mailsOnPage);
             if (hasNext)
             {
                 buttonNext.Text = "Next " + (currentPage + 2);
@@ -96,10 +97,6 @@ namespace GarmentFactoryView
             {
                 buttonNext.Text = "Next";
                 buttonNext.Enabled = false;
-            }
-            if (list != null)
-            {
-                dataGridView.DataSource = list.Take(mailsOnPage).ToList();
             }
         }
     }

@@ -41,58 +41,65 @@
             // labelWarehouse
             // 
             this.labelWarehouse.AutoSize = true;
-            this.labelWarehouse.Location = new System.Drawing.Point(10, 9);
+            this.labelWarehouse.Location = new System.Drawing.Point(14, 15);
+            this.labelWarehouse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelWarehouse.Name = "labelWarehouse";
-            this.labelWarehouse.Size = new System.Drawing.Size(43, 15);
+            this.labelWarehouse.Size = new System.Drawing.Size(64, 25);
             this.labelWarehouse.TabIndex = 2;
             this.labelWarehouse.Text = "Склад:";
             // 
             // labelTextile
             // 
             this.labelTextile.AutoSize = true;
-            this.labelTextile.Location = new System.Drawing.Point(10, 38);
+            this.labelTextile.Location = new System.Drawing.Point(14, 63);
+            this.labelTextile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTextile.Name = "labelTextile";
-            this.labelTextile.Size = new System.Drawing.Size(41, 15);
+            this.labelTextile.Size = new System.Drawing.Size(62, 25);
             this.labelTextile.TabIndex = 3;
             this.labelTextile.Text = "Ткань:";
             // 
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(10, 67);
+            this.labelCount.Location = new System.Drawing.Point(14, 112);
+            this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(75, 15);
+            this.labelCount.Size = new System.Drawing.Size(111, 25);
             this.labelCount.TabIndex = 4;
             this.labelCount.Text = "Количество:";
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(93, 64);
+            this.textBoxCount.Location = new System.Drawing.Point(133, 107);
+            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(207, 23);
+            this.textBoxCount.Size = new System.Drawing.Size(294, 31);
             this.textBoxCount.TabIndex = 5;
             // 
             // comboBoxTextile
             // 
             this.comboBoxTextile.FormattingEnabled = true;
-            this.comboBoxTextile.Location = new System.Drawing.Point(93, 35);
+            this.comboBoxTextile.Location = new System.Drawing.Point(133, 58);
+            this.comboBoxTextile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxTextile.Name = "comboBoxTextile";
-            this.comboBoxTextile.Size = new System.Drawing.Size(207, 23);
+            this.comboBoxTextile.Size = new System.Drawing.Size(294, 33);
             this.comboBoxTextile.TabIndex = 6;
             // 
             // comboBoxWarehouse
             // 
             this.comboBoxWarehouse.FormattingEnabled = true;
-            this.comboBoxWarehouse.Location = new System.Drawing.Point(93, 6);
+            this.comboBoxWarehouse.Location = new System.Drawing.Point(133, 10);
+            this.comboBoxWarehouse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxWarehouse.Name = "comboBoxWarehouse";
-            this.comboBoxWarehouse.Size = new System.Drawing.Size(207, 23);
+            this.comboBoxWarehouse.Size = new System.Drawing.Size(294, 33);
             this.comboBoxWarehouse.TabIndex = 7;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(143, 93);
+            this.buttonSave.Location = new System.Drawing.Point(204, 155);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(107, 38);
             this.buttonSave.TabIndex = 8;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -100,9 +107,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(224, 93);
+            this.buttonCancel.Location = new System.Drawing.Point(320, 155);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(107, 38);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -110,9 +118,9 @@
             // 
             // FormWarehouseTextile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 128);
+            this.ClientSize = new System.Drawing.Size(444, 213);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.comboBoxWarehouse);
@@ -121,6 +129,7 @@
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.labelTextile);
             this.Controls.Add(this.labelWarehouse);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormWarehouseTextile";
             this.Text = "Ткань склада";
             this.ResumeLayout(false);

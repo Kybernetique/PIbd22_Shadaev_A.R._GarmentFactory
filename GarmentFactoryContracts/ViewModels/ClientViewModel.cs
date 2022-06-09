@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using GarmentFactoryContracts.Attributes;
 
 namespace GarmentFactoryContracts.ViewModels
 {
     public class ClientViewModel
     {
+        [Column(title: "Номер", width: 100)]
         public int Id { get; set; }
 
-        [DisplayName("ФИО клиента")]
+        [Column(title: "ФИО Клиента", width: 150)]
         public string ClientFIO { get; set; }
 
-        [DisplayName("Почта")]
+        [Column(title: "Почта", width: 100)]
         public string Email { get; set; }
 
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 100)]
         public string Password { get; set; }
     }
 }

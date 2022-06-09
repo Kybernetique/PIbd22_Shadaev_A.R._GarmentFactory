@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
+using System.Reflection;
 
 namespace GarmentFactoryView
 {
@@ -37,7 +38,8 @@ namespace GarmentFactoryView
         {
             try
             {
-                var dataSource = _logic.GetTotalOrders();
+                MethodInfo method = _logic.GetType().GetMethod("GetTotalOrders");
+                var dataSource = method.Invoke(_logic, new object[] { new ReportBindingModel { } });
                 var source = new ReportDataSource("TotalOrders", dataSource);
                 reportViewer.LocalReport.DataSources.Clear();
                 reportViewer.LocalReport.DataSources.Add(source);
@@ -60,6 +62,11 @@ namespace GarmentFactoryView
                     {
                         FileName = dialog.FileName,
                     });
+                    MethodInfo method = _logic.GetType().GetMethod("SaveTotalOrdersToPdfFile");
+                    var dataSource = method.Invoke(_logic, new object[] { new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    } });
                     MessageBox.Show("Выполнено", "Успех",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

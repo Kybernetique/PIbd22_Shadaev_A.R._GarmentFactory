@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GarmentFactoryContracts.Attributes;
+using System;
 using System.ComponentModel;
 
 
@@ -6,24 +7,19 @@ namespace GarmentFactoryContracts.ViewModels
 {
     public class MessageInfoViewModel
     {
+        [Column(title: "Номер", width: 100, visible: false)]
         public string MessageId { get; set; }
 
-        [DisplayName("Отправитель")]
+        [Column(title: "Отправитель", width: 150)]
         public string SenderName { get; set; }
 
-        [DisplayName("Дата")]
+        [Column(title: "Дата письма", width: 100)]
         public DateTime DateDelivery { get; set; }
 
-        [DisplayName("Заголовок")]
+        [Column(title: "Заголовок", width: 100)]
         public string Subject { get; set; }
 
-        [DisplayName("Текст")]
+        [Column(title: "Текст", gridViewAutoSize: GridViewAutoSize.AllCells)]
         public string Body { get; set; }
-
-        [DisplayName("Прочтено")]
-        public bool Viewed { get; set; }
-
-        [DisplayName("Ответ")]
-        public string ReplyText { get; set; }
     }
 }

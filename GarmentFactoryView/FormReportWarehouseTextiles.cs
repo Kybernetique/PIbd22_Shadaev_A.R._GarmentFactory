@@ -1,11 +1,13 @@
 ﻿using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
+using GarmentFactoryContracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,7 +28,8 @@ namespace GarmentFactoryView
         {
             try
             {
-                var dict = _logic.GetWarehouseTextiles();
+                MethodInfo method = _logic.GetType().GetMethod("GetWarehouseTextiles");
+                var dict = (List<ReportWarehouseTextileViewModel>)method.Invoke(_logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -57,11 +60,11 @@ namespace GarmentFactoryView
             {
                 try
                 {
-                    _logic.SaveWarehouseTextileToExcelFile(new
-                    ReportBindingModel
+                    MethodInfo method = _logic.GetType().GetMethod("SaveWarehouseTextileToExcelFile");
+                    var dataSource = method.Invoke(_logic, new object[] { new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    } });
                     MessageBox.Show("Выполнено", "Успех",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

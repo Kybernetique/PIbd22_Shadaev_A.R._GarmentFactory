@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 using GarmentFactoryContracts.ViewModels;
+using System.Reflection;
 
 namespace GarmentFactoryView
 {
