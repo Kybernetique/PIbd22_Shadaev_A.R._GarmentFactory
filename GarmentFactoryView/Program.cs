@@ -95,8 +95,7 @@ namespace GarmentFactoryView
             grid.Columns.Clear();
             foreach (var prop in type.GetProperties())
             {
-                var attributes =
-                prop.GetCustomAttributes(typeof(ColumnAttribute), true);
+                var attributes = prop.GetCustomAttributes(typeof(ColumnAttribute), true);
                 if (attributes != null && attributes.Length > 0)
                 {
                     foreach (var attr in attributes)

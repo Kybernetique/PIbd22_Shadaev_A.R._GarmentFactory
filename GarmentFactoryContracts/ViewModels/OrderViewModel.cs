@@ -41,10 +41,10 @@ namespace GarmentFactoryContracts.ViewModels
         [Column(title: "Статус", width: 100)]
         public OrderStatus Status { get; set; }
 
-        [Column(title: "Дата создания", width: 100)]
+        [Column(title: "Дата создания", width: 100, dateFormat:"d")]
         public DateTime DateCreate { get; set; }
 
-        [Column(title: "Дата выполнения", width: 100)]
+        [Column(title: "Дата выполнения", width: 100, dateFormat: "d")]
         public DateTime? DateImplement { get; set; }
     }
 }
