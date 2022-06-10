@@ -3,8 +3,6 @@ using System.Windows.Forms;
 using GarmentFactoryContracts.BindingModels;
 using GarmentFactoryContracts.BusinessLogicsContracts;
 
-
-
 namespace GarmentFactoryView
 {
     public partial class FormClients : Form

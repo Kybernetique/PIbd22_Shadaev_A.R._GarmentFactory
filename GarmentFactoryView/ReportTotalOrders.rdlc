@@ -296,7 +296,7 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="TravelCompanyBusinnesLogicViewModels">
+    <DataSource Name="GarmentFactoryBusinessLogicViewModels">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
@@ -307,7 +307,7 @@
   <DataSets>
     <DataSet Name="TotalOrders">
       <Query>
-        <DataSourceName>TravelCompanyBusinnesLogicViewModels</DataSourceName>
+        <DataSourceName>GarmentFactoryBusinessLogicViewModels</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -325,9 +325,9 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>TravelCompanyBusinnesLogic.ViewModels</rd:DataSetName>
+        <rd:DataSetName>GarmentFactoryBusinessLogic.ViewModels</rd:DataSetName>
         <rd:TableName>ReportTotalOrdersViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>TravelCompanyBusinnesLogic.ViewModels.ReportTotalOrdersViewModel, TravelCompanyBusinnesLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>GarmentFactoryBusinessLogic.ViewModels.ReportTotalOrdersViewModel, GarmentFactoryBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
